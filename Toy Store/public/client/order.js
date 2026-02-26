@@ -7,7 +7,21 @@ function selectPay(method, btn) {
   btn.classList.add('selected');
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Block page if not logged in
+  const me = await fetch('/api/users/me', { credentials: 'same-origin' }).then(r => r.json());
+  if (!me.loggedIn) {
+    document.body.innerHTML = `
+      <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);font-family:'Nunito',sans-serif">
+        <div style="text-align:center;padding:3rem;background:#fff;border-radius:24px;box-shadow:0 16px 48px rgba(255,79,139,.15);max-width:400px;width:90%">
+          <div style="font-size:3rem;margin-bottom:1rem">🔒</div>
+          <h2 style="font-family:'Fredoka One',cursive;font-size:1.6rem;margin-bottom:.5rem">Please select a profile</h2>
+          <p style="color:#6B6B8A;margin-bottom:1.5rem">You need to select a user profile before checking out.</p>
+          <a href="index.html" style="display:inline-flex;align-items:center;gap:.4rem;background:linear-gradient(135deg,#FF4F8B,#D93070);color:#fff;padding:.8rem 2rem;border-radius:50px;font-weight:800;text-decoration:none">← Go to Home</a>
+        </div>
+      </div>`;
+    return;
+  }
   loadOrderSummary();
   updateCartCount();
 });

@@ -175,7 +175,7 @@
     </div>
     <div>
       <p class="footer-heading">Quick Links</p>
-      <a href="products.html">Products</a>
+      <a href="./products.html">Products</a>
       <a href="cart.html">Cart</a>
       <a href="orders-history.html">My Orders</a>
       <a href="contact.html">Contact</a>
@@ -340,10 +340,10 @@ function renderFeatured(list) {
     div.className = 'card';
     div.style.cursor = 'pointer';
     div.style.animationDelay = `${i*.06}s`;
-    div.onclick = () => location.href = `product-detail.html?id=${p.productId}`;
+    div.onclick = () => location.href = `/product-detail.html?id=${p.productId}`;
     div.innerHTML = `
       <div style="overflow:hidden">
-        <img src="${p.imageUrl}" class="card-img" onerror="this.src='https://placehold.co/400x300/FFE5F0/FF4F8B?text=🧸'">
+        <img src="${p.imageUrl}" class="card-img" style="object-position:${p.imagePosition||'center'}" onerror="this.src='https://placehold.co/400x300/FFE5F0/FF4F8B?text=🧸'">
       </div>
       <div class="card-body">
         <span class="card-category">${catName(p.categoryId)}</span>

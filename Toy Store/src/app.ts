@@ -13,37 +13,48 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+
+/* =========================
+   SESSION CONFIG
+========================= */
 app.use(
   session({
     secret: "toy-store-secret",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
   })
 );
 
-// Shared CSS (accessible at /css/theme.css from all pages)
+/* =========================
+   STATIC FILES
+========================= */
+
+// Shared CSS
 app.use("/css", express.static(path.join(process.cwd(), "public/css")));
 
-// Client public
+// CLIENT
 app.use(express.static(path.join(process.cwd(), "public/client")));
 
-// Protect admin pages
+// ADMIN
 app.use(
   "/admin",
-  (req, res, next) => {
-    if (req.path === "/login.html" || req.path === "/login.js") return next();
-    requireAdmin(req, res, next);
-  },
+  requireAdmin,
   express.static(path.join(process.cwd(), "public/admin"))
 );
 
-// API Routes
+/* =========================
+   API ROUTES
+========================= */
+
+// Customer APIs
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
-app.use("/api/admin", adminRoutes);
 app.use("/api/users", userRoutes);
 
+// Admin APIs (protected)
+app.use("/api/admin", requireAdmin, adminRoutes);
+
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });

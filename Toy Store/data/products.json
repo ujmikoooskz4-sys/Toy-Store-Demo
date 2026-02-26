@@ -11,7 +11,8 @@
       "name": "Super Hero Figure",
       "description": "Poseable action figure with 10 points of articulation. Perfect for imaginative play.",
       "price": 299,
-      "imageUrl": "https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?w=400",
+      "imageUrl": "https://cdna.artstation.com/p/assets/images/images/053/656/568/large/enrico-shin-seifuku-image1.jpg?1662715927",
+      "imagePosition": "top",
       "attributes": { "color": ["Red", "Blue", "Black"], "size": ["Small", "Large"] }
     },
     {
@@ -20,7 +21,7 @@
       "name": "Robot Warrior",
       "description": "Transforming robot warrior with light-up eyes and battle sounds.",
       "price": 499,
-      "imageUrl": "https://images.unsplash.com/photo-1620459550440-a2d44e1b1ace?w=400",
+      "imageUrl": "https://i.pinimg.com/736x/bc/04/44/bc04445a5c1c4e5a20c04d2e1f7e2ac8.jpg",
       "attributes": { "color": ["Silver", "Gold"] }
     },
     {

@@ -1,88 +1,10 @@
 [
   {
-    "id": 1771666218774,
-    "name": "Hein Htet Aung",
-    "address": "Aung Su Pyae",
-    "phone": "0810801026",
-    "payment": "SCB",
-    "items": [
-      {
-        "productId": 1,
-        "productName": "Teddy Bear",
-        "quantity": 1,
-        "price": 299
-      }
-    ],
-    "total": 299,
-    "status": "Completed",
-    "date": "2/21/2026, 4:30:18 PM"
-  },
-  {
-    "id": 1771742283423,
-    "name": "abc",
-    "address": "cici",
-    "phone": "11447788",
-    "payment": "Krungthai",
-    "items": [
-      {
-        "productId": 1,
-        "productName": "Teddy Bear",
-        "quantity": 1,
-        "price": 299
-      }
-    ],
-    "total": 299,
-    "status": "Completed",
-    "date": "2/22/2026, 1:38:03 PM"
-  },
-  {
-    "id": 1771742684638,
-    "name": "pipi",
-    "address": "mamo",
-    "phone": "8888888",
-    "payment": "KBank",
-    "items": [
-      {
-        "productId": 2,
-        "productName": "Toy Car",
-        "quantity": 1,
-        "price": 199
-      }
-    ],
-    "total": 199,
-    "status": "Completed",
-    "date": "2/22/2026, 1:44:44 PM"
-  },
-  {
-    "id": 1771752898939,
-    "name": "abcde",
-    "address": "mmmmm",
-    "phone": "111555997788",
-    "payment": "KBank",
-    "items": [
-      {
-        "productId": 1,
-        "productName": "Teddy Bear",
-        "quantity": 1,
-        "price": 299
-      },
-      {
-        "productId": 2,
-        "productName": "Toy Car",
-        "quantity": 1,
-        "price": 199
-      }
-    ],
-    "total": 498,
-    "status": "Completed",
-    "date": "2/22/2026, 4:34:58 PM"
-  },
-  {
-    "id": 1772108884541,
-    "customerId": 1,
-    "name": "kafka",
+    "id": 1772111637222,
+    "customerId": 3,
+    "name": "Nina",
     "address": "chiang mai",
-    "phone": "012312300",
+    "phone": "112233445566",
     "payment": "SCB",
     "items": [
       {
@@ -90,16 +12,29 @@
         "productName": "Super Hero Figure",
         "quantity": 1,
         "price": 299
-      },
-      {
-        "productId": 102,
-        "productName": "Robot Warrior",
-        "quantity": 1,
-        "price": 499
       }
     ],
-    "total": 798,
+    "total": 299,
     "status": "Pending",
-    "date": "2/26/2026, 7:28:04 PM"
+    "date": "2/26/2026, 8:13:57 PM"
+  },
+  {
+    "id": 1772112540974,
+    "customerId": 2,
+    "name": "Mona",
+    "address": "chiang rai",
+    "phone": "9988778899",
+    "payment": "KBank",
+    "items": [
+      {
+        "productId": 104,
+        "productName": "Space Commander",
+        "quantity": 1,
+        "price": 279
+      }
+    ],
+    "total": 279,
+    "status": "Pending",
+    "date": "2/26/2026, 8:29:00 PM"
   }
 ]

@@ -74,21 +74,55 @@ function statusBadge(s) {
   return `<span class="badge ${map[s]||'badge-paid'}">${s}</span>`;
 }
 
-fetch('/api/cart',{credentials:'same-origin'}).then(r=>r.json()).then(c=>{document.getElementById('cart-count').textContent=c.reduce((t,i)=>t+Number(i.quantity),0);});
+// Update cart count
+fetch('/api/cart', { credentials: 'same-origin' })
+  .then(r => r.json())
+  .then(c => {
+    document.getElementById('cart-count').textContent = c.reduce((t, i) => t + Number(i.quantity), 0);
+  });
 
-fetch('/api/orders',{credentials:'same-origin'}).then(r=>r.json()).then(orders=>{
+// Main: check login first, then load only this user's orders
+async function init() {
   const container = document.getElementById('orders-container');
-  if(!orders||!orders.length){
-    container.innerHTML=`<div class="empty-state"><div class="icon">📦</div><h3>No orders yet</h3><p>Start shopping to see your orders here!</p><a href="products.html" class="btn btn-primary" style="margin-top:1.2rem;display:inline-flex">Browse Products</a></div>`;
+
+  // Step 1: check if a user profile is selected
+  const me = await fetch('/api/users/me', { credentials: 'same-origin' }).then(r => r.json());
+
+  if (!me.loggedIn) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">🔒</div>
+        <h3>Please select a profile first</h3>
+        <p>You need to select a user profile to view your orders.</p>
+        <a href="index.html" class="btn btn-primary" style="margin-top:1.2rem;display:inline-flex">← Go to Home & Select Profile</a>
+      </div>`;
     return;
   }
-  container.innerHTML='';
-  [...orders].reverse().forEach((o,i)=>{
-    const summary = o.items.map(x=>`${x.productName} ×${x.quantity}`).join(', ');
-    const div=document.createElement('div');
-    div.className='order-card';
-    div.style.animationDelay=`${i*.06}s`;
-    div.innerHTML=`
+
+  // Step 2: show whose orders we're viewing
+  document.querySelector('.section-sub').textContent = `Orders for: ${me.name}`;
+
+  // Step 3: fetch orders — backend already filters by session customerId
+  const orders = await fetch('/api/orders', { credentials: 'same-origin' }).then(r => r.json());
+
+  if (!orders || !orders.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">📦</div>
+        <h3>No orders yet</h3>
+        <p>Start shopping to see your orders here!</p>
+        <a href="products.html" class="btn btn-primary" style="margin-top:1.2rem;display:inline-flex">Browse Products</a>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = '';
+  [...orders].reverse().forEach((o, i) => {
+    const summary = o.items.map(x => `${x.productName} ×${x.quantity}`).join(', ');
+    const div = document.createElement('div');
+    div.className = 'order-card';
+    div.style.animationDelay = `${i * .06}s`;
+    div.innerHTML = `
       <div class="order-header">
         <div>
           <div class="order-id">#${o.id}</div>
@@ -104,7 +138,9 @@ fetch('/api/orders',{credentials:'same-origin'}).then(r=>r.json()).then(orders=>
       </div>`;
     container.appendChild(div);
   });
-});
+}
+
+init();
 </script>
 </body>
 </html>
