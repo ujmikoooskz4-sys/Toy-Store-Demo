@@ -8,8 +8,8 @@
     {
       "productId": 101,
       "categoryId": 1,
-      "name": "Super Hero Figure",
-      "description": "Poseable action figure with 10 points of articulation. Perfect for imaginative play.",
+      "name": "Marin Kitagawa – My Dress-Up Darling",
+      "description": "Marin poses playfully in her school uniform, highlighting her bright personality and fashionable charm.",
       "price": 299,
       "imageUrl": "https://cdna.artstation.com/p/assets/images/images/053/656/568/large/enrico-shin-seifuku-image1.jpg?1662715927",
       "imagePosition": "top",
@@ -18,37 +18,41 @@
     {
       "productId": 102,
       "categoryId": 1,
-      "name": "Robot Warrior",
-      "description": "Transforming robot warrior with light-up eyes and battle sounds.",
+      "name": "Rei Ayanami – Evangelion",
+      "description": "TRei sits quietly in her iconic plugsuit, beautifully sculpted to reflect her mysterious and emotionless aura.",
       "price": 499,
+      "imagePosition": "top",
       "imageUrl": "https://i.pinimg.com/736x/bc/04/44/bc04445a5c1c4e5a20c04d2e1f7e2ac8.jpg",
       "attributes": { "color": ["Silver", "Gold"] }
     },
     {
       "productId": 103,
       "categoryId": 1,
-      "name": "Dinosaur Rex",
-      "description": "Realistic T-Rex figure with movable jaw and textured skin.",
+      "name": "Light Yagami & Ryuk – Death Note",
+      "description": "A dark and dramatic statue featuring Light with the red apple and Ryuk looming behind him, capturing the intense supernatural atmosphere of Death Note.",
       "price": 349,
-      "imageUrl": "https://images.unsplash.com/photo-1615395189689-4e4cce0a1a93?w=400",
+      "imagePosition": "top",
+      "imageUrl": "https://i.pinimg.com/1200x/11/7c/d5/117cd53fd4d5734c91c31669b05c713e.jpg",
       "attributes": { "color": ["Green", "Brown"] }
     },
     {
       "productId": 104,
       "categoryId": 1,
-      "name": "Space Commander",
-      "description": "Astronaut action figure with removable helmet and accessories.",
+      "name": "Frieren – Frieren: Beyond Journey’s End",
+      "description": "Elegant mage Frieren stands gracefully with her staff on a floral base, showcasing her calm yet powerful presence.",
       "price": 279,
-      "imageUrl": "https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=400",
+      "imagePosition":"top",
+      "imageUrl": "https://i.pinimg.com/736x/83/47/17/8347174408d5c76040ccb50649d4e395.jpg",
       "attributes": { "color": ["White", "Orange"] }
     },
     {
       "productId": 105,
       "categoryId": 1,
-      "name": "Knight Fighter",
-      "description": "Medieval knight figure with armor, sword, and shield accessories.",
+      "name": "Denji - Chainsaw Man",
+      "description": "An action-packed figure of Denji in Chainsaw Man form, featuring dynamic blood effects and an intense battle pose.",
       "price": 329,
-      "imageUrl": "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=400",
+      "imagePosition": "top",
+      "imageUrl": "https://i.pinimg.com/736x/f9/63/35/f963350b147bcb08b342bb69fe6ccd25.jpg",
       "attributes": { "color": ["Silver", "Bronze", "Black"] }
     },
     {
