@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — SuperNina's Toy Store</title>
+  <link rel="stylesheet" href="/css/theme.css">
+  <style>
+    .checkout-grid { display:grid; grid-template-columns:1fr 380px; gap:2.5rem; align-items:start; }
+    .checkout-section { background:#fff; border-radius:var(--radius); padding:2rem; box-shadow:var(--shadow-sm); border:1.5px solid var(--border); }
+    .checkout-section h2 { font-family:'Fredoka One',cursive; font-size:1.2rem; margin-bottom:1.5rem; display:flex; align-items:center; gap:.5rem; }
+    .form-grid { display:grid; gap:1rem; }
+    .payment-options { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; }
+    .pay-btn {
+      border:2.5px solid var(--border); border-radius:var(--radius-sm);
+      padding:.8rem 1rem; text-align:center; cursor:pointer;
+      font-weight:800; font-size:.88rem; transition:all var(--transition);
+      background:#fff; color:var(--text);
+    }
+    .pay-btn:hover { border-color:var(--pink); color:var(--pink); }
+    .pay-btn.selected { border-color:var(--pink); background:var(--pink-lt); color:var(--pink); }
+    .order-item-row { display:flex; justify-content:space-between; padding:.55rem 0; border-bottom:1px solid var(--border); font-size:.88rem; }
+    .order-total-row { display:flex; justify-content:space-between; padding:.8rem 0 0; font-family:'Fredoka One',cursive; font-size:1.3rem; }
+    @media(max-width:900px) { .checkout-grid { grid-template-columns:1fr; } }
+    #confirm-btn { transition:all .3s; }
+    #confirm-btn.loading { opacity:.7; pointer-events:none; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">🧸 SuperNina's</a>
+  <ul class="navbar-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="cart.html" class="cart-link">🛒 Cart <span class="cart-badge" id="cart-count">0</span></a></li>
+    <li><a href="orders-history.html">Orders</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="mobile-menu-btn" onclick="document.getElementById('mobile-menu').classList.toggle('open')">☰</button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">🏠 Home</a><a href="products.html">🧸 Products</a>
+  <a href="cart.html">🛒 Cart</a><a href="orders-history.html">📦 Orders</a><a href="contact.html">📍 Contact</a>
+</div>
+
+<div style="background:linear-gradient(135deg,#FFE5F0,#FFF3C4);padding:2.5rem 2rem 2rem;text-align:center">
+  <h1 class="section-title" style="font-size:2rem">📦 Checkout</h1>
+  <p class="section-sub mt-2">Almost there! Fill in your details below.</p>
+</div>
+
+<div class="container" style="padding:2.5rem 1.5rem 5rem">
+  <div class="checkout-grid">
+
+    <!-- Shipping Form -->
+    <div class="checkout-section animate-up">
+      <h2>🚚 Shipping Details</h2>
+      <div class="form-grid">
+        <div>
+          <label class="form-label">Full Name</label>
+          <input class="input-field" id="name" type="text" placeholder="e.g. Kenji Tanaka">
+        </div>
+        <div>
+          <label class="form-label">Address</label>
+          <input class="input-field" id="address" type="text" placeholder="e.g. 123 Nimman Road, Chiang Mai">
+        </div>
+        <div>
+          <label class="form-label">Phone Number</label>
+          <input class="input-field" id="phone" type="text" placeholder="e.g. 0812345678">
+        </div>
+        <div>
+          <label class="form-label">Payment Method</label>
+          <div class="payment-options">
+            <button class="pay-btn selected" onclick="selectPay('SCB',this)">🏦 SCB</button>
+            <button class="pay-btn" onclick="selectPay('KBank',this)">💚 KBank</button>
+            <button class="pay-btn" onclick="selectPay('Krungthai',this)">🔵 Krungthai</button>
+            <button class="pay-btn" onclick="selectPay('Bangkok Bank',this)">🔷 Bangkok Bank</button>
+          </div>
+          <input type="hidden" id="payment" value="SCB">
+        </div>
+      </div>
+      <p style="margin-top:1rem;font-size:.8rem;color:var(--muted)">💳 Payment is simulated — no real charge will occur.</p>
+    </div>
+
+    <!-- Summary -->
+    <div>
+      <div class="checkout-section animate-up" style="animation-delay:.08s">
+        <h2>🛒 Order Summary</h2>
+        <div id="order-items"></div>
+        <div class="order-total-row">
+          <span>Total</span>
+          <span class="text-pink">฿<span id="order-total">0</span></span>
+        </div>
+      </div>
+      <button id="confirm-btn" onclick="submitOrder()" class="btn btn-green btn-lg" style="width:100%;justify-content:center;margin-top:1rem">
+        ✅ Place Order
+      </button>
+      <a href="cart.html" class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:.6rem;display:flex">← Back to Cart</a>
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div><div class="footer-brand">🧸 SuperNina's</div><p style="font-size:.85rem;color:rgba(255,255,255,.5)">Bringing joy and imagination to children everywhere.</p></div>
+    <div><p class="footer-heading">Quick Links</p><a href="products.html">Products</a><a href="contact.html">Contact</a></div>
+    <div><p class="footer-heading">Contact</p><p>support@toystore.com</p></div>
+  </div>
+  <div class="footer-bottom">© 2026 SuperNina's Toy Store. All rights reserved.</div>
+</footer>
+
+<div id="toast-container"></div>
+<script>
+function showToast(msg){const c=document.getElementById('toast-container');const t=document.createElement('div');t.className='toast';t.innerHTML=msg;c.appendChild(t);setTimeout(()=>{t.classList.add('leaving');setTimeout(()=>t.remove(),300);},2500);}
+function updateCartCount(){fetch('/api/cart',{credentials:'same-origin'}).then(r=>r.json()).then(c=>{document.getElementById('cart-count').textContent=c.reduce((t,i)=>t+Number(i.quantity),0);});}
+</script>
+<script src="order.js"></script>
+</body>
+</html>

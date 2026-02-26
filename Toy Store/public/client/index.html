@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧸 SuperNina's Toy Store</title>
+  <link rel="stylesheet" href="/css/theme.css">
+  <style>
+    /* ── Carousel ── */
+    .slides { position: relative; overflow: hidden; border-radius: 0; }
+    .slide { display: none; position: relative; }
+    .slide.active { display: block; animation: fadeIn .5s ease; }
+    .slide-content {
+      min-height: 480px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 4rem 2rem;
+    }
+    .slide-inner { max-width: 640px; text-align: center; }
+    .slide-emoji { font-size: 5rem; margin-bottom: 1rem; animation: float 3s ease-in-out infinite; display: block; }
+    .slide-title { font-family: 'Fredoka One', cursive; font-size: clamp(2rem,5vw,3.2rem); margin-bottom: 1rem; line-height: 1.15; }
+    .slide-sub { font-size: 1.1rem; font-weight: 600; opacity: .85; margin-bottom: 2rem; }
+    .slide-1 { background: linear-gradient(135deg, #FFE5F0 0%, #FFF3C4 100%); color: #1A1A2E; }
+    .slide-2 { background: linear-gradient(135deg, #E0F7FA 0%, #B2EBF2 100%); color: #1A1A2E; }
+    .slide-3 { background: linear-gradient(135deg, #F3E5F5 0%, #EDE7F6 100%); color: #1A1A2E; }
+    .carousel-controls {
+      position: absolute; inset: 0; pointer-events: none;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1rem;
+    }
+    .carousel-btn {
+      pointer-events: all;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,.8); backdrop-filter: blur(6px);
+      border: 2px solid rgba(255,79,139,.2); cursor: pointer;
+      font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,.1); transition: all .2s;
+    }
+    .carousel-btn:hover { background: #fff; transform: scale(1.1); box-shadow: 0 6px 20px rgba(255,79,139,.3); }
+    .carousel-dots { display: flex; gap: .5rem; justify-content: center; margin-top: 1rem; }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--border); cursor: pointer; transition: all .25s;
+    }
+    .dot.active { background: var(--pink); width: 24px; border-radius: 4px; }
+    /* ── Features ── */
+    .feature-card {
+      background: #fff; border-radius: var(--radius);
+      padding: 2rem 1.5rem; text-align: center;
+      border: 2px solid var(--border);
+      transition: all var(--transition);
+    }
+    .feature-card:hover { transform: translateY(-6px); border-color: var(--pink-lt); box-shadow: var(--shadow-md); }
+    .feature-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+    .feature-title { font-family: 'Fredoka One', cursive; font-size: 1.15rem; margin-bottom: .5rem; }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">🧸 SuperNina's</a>
+  <ul class="navbar-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="cart.html" class="cart-link">🛒 Cart <span class="cart-badge" id="cart-count">0</span></a></li>
+    <li><a href="orders-history.html">Orders</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><button class="user-pill" onclick="openUserModal()">👤 <span id="user-label">Select User</span></button></li>
+  </ul>
+  <button class="mobile-menu-btn" onclick="toggleMobile()">☰</button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">🏠 Home</a>
+  <a href="products.html">🧸 Products</a>
+  <a href="cart.html">🛒 Cart</a>
+  <a href="orders-history.html">📦 Orders</a>
+  <a href="contact.html">📍 Contact</a>
+</div>
+
+<!-- User Modal -->
+<div class="modal-overlay" id="user-modal" onclick="closeUserModalOutside(event)">
+  <div class="modal-box">
+    <h2 style="font-family:'Fredoka One',cursive;font-size:1.5rem;text-align:center;margin-bottom:.4rem">👋 Who's shopping?</h2>
+    <p class="text-muted" style="text-align:center;font-size:.88rem;margin-bottom:1.5rem">Pick your profile to get started</p>
+    <div id="user-list" style="display:flex;flex-direction:column;gap:.75rem"></div>
+    <button onclick="closeUserModal()" class="btn btn-ghost" style="width:100%;margin-top:1rem;justify-content:center">Maybe later</button>
+  </div>
+</div>
+
+<!-- Hero Carousel -->
+<div class="slides" id="carousel">
+  <div class="slide active slide-1">
+    <div class="slide-content">
+      <div class="slide-inner">
+        <span class="slide-emoji">🧸</span>
+        <h1 class="slide-title">Welcome to <span>SuperNina's</span> Toy World!</h1>
+        <p class="slide-sub">Magical toys that spark joy and imagination for every child.</p>
+        <a href="products.html" class="btn btn-primary btn-lg">Shop Now ✨</a>
+      </div>
+    </div>
+  </div>
+  <div class="slide slide-2">
+    <div class="slide-content">
+      <div class="slide-inner">
+        <span class="slide-emoji">⚔️</span>
+        <h1 class="slide-title" style="color:#0288D1">Epic Action Figures</h1>
+        <p class="slide-sub" style="color:#0F3460">Heroes, robots, dinosaurs — find your favourite fighter!</p>
+        <a href="products.html?category=1" class="btn btn-lg" style="background:linear-gradient(135deg,#4FC3F7,#0288D1);color:#fff;box-shadow:0 4px 16px rgba(2,136,209,.4)">Explore ⚔️</a>
+      </div>
+    </div>
+  </div>
+  <div class="slide slide-3">
+    <div class="slide-content">
+      <div class="slide-inner">
+        <span class="slide-emoji">🧸</span>
+        <h1 class="slide-title" style="color:#7C3AED">Stuffed Animals & More</h1>
+        <p class="slide-sub" style="color:#5B21B6">Soft, cuddly friends waiting to be loved.</p>
+        <a href="products.html?category=3" class="btn btn-lg" style="background:linear-gradient(135deg,#A855F7,#7C3AED);color:#fff;box-shadow:0 4px 16px rgba(124,58,237,.4)">Meet Them 💜</a>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-controls">
+    <button class="carousel-btn" onclick="moveSlide(-1)">‹</button>
+    <button class="carousel-btn" onclick="moveSlide(1)">›</button>
+  </div>
+</div>
+<div class="carousel-dots" id="carousel-dots"></div>
+
+<!-- Category Chips + Featured Products -->
+<section style="padding:4rem 0 2rem">
+  <div class="container">
+    <div class="section-wrapper animate-up">
+      <h2 class="section-title">Browse by Category</h2>
+      <p class="section-sub mt-2">Discover something magical in every collection</p>
+    </div>
+
+    <div id="category-chips" style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-bottom:2.5rem;animation:fadeUp .5s .1s ease both"></div>
+
+    <div id="featured-products" class="grid-3 stagger"></div>
+  </div>
+</section>
+
+<!-- Feature Icons -->
+<section style="padding:3rem 0 4rem;background:linear-gradient(180deg,transparent,rgba(255,79,139,.03))">
+  <div class="container">
+    <div class="section-wrapper animate-up" style="margin-bottom:2rem">
+      <h2 class="section-title">Why Choose Us?</h2>
+    </div>
+    <div class="grid-3 stagger">
+      <div class="feature-card">
+        <span class="feature-icon">🎁</span>
+        <h3 class="feature-title">Premium Quality</h3>
+        <p style="font-size:.88rem;color:var(--muted)">Every toy is carefully selected for safety and durability.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🚀</span>
+        <h3 class="feature-title">Fast Delivery</h3>
+        <p style="font-size:.88rem;color:var(--muted)">Quick and reliable delivery straight to your doorstep.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">💖</span>
+        <h3 class="feature-title">Happy Kids</h3>
+        <p style="font-size:.88rem;color:var(--muted)">Thousands of smiles and counting. Your joy is our mission.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">🧸 SuperNina's</div>
+      <p style="font-size:.85rem;color:rgba(255,255,255,.5);line-height:1.8">Bringing joy and imagination to children everywhere since 2020.</p>
+    </div>
+    <div>
+      <p class="footer-heading">Quick Links</p>
+      <a href="products.html">Products</a>
+      <a href="cart.html">Cart</a>
+      <a href="orders-history.html">My Orders</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div>
+      <p class="footer-heading">Contact</p>
+      <p>support@toystore.com</p>
+      <p>+66 53 123 456</p>
+      <p>Nimman Road, Chiang Mai</p>
+    </div>
+    <div>
+      <p class="footer-heading">Follow Us</p>
+      <a href="#">📘 Facebook</a>
+      <a href="#">📸 Instagram</a>
+      <a href="#">🎵 TikTok</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 SuperNina's Toy Store. All rights reserved. Made with 💖</div>
+</footer>
+
+<!-- Chat -->
+<button id="chat-btn" onclick="toggleChat()">💬</button>
+<div id="chat-box">
+  <div class="chat-header">
+    <span>💬 Live Support</span>
+    <button onclick="toggleChat()" style="background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer">✕</button>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="msg-bot">👋 Hi! How can we help you today?</div>
+  </div>
+  <div class="chat-input-row">
+    <input id="chat-input" type="text" placeholder="Type a message…">
+    <button onclick="sendChatMsg()">Send</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast-container"></div>
+
+<script>
+// ── Mobile menu ──
+function toggleMobile() {
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+
+// ── Chat ──
+function toggleChat() {
+  document.getElementById('chat-box').classList.toggle('open');
+}
+document.getElementById('chat-input').addEventListener('keypress', e => { if(e.key==='Enter') sendChatMsg(); });
+function sendChatMsg() {
+  const inp = document.getElementById('chat-input');
+  const msg = inp.value.trim(); if(!msg) return;
+  const box = document.getElementById('chat-messages');
+  box.innerHTML += `<div class="msg-user">${msg}</div>`;
+  inp.value = ''; box.scrollTop = 99999;
+  setTimeout(() => {
+    box.innerHTML += `<div class="msg-bot">Thank you! Our team will respond shortly 😊</div>`;
+    box.scrollTop = 99999;
+  }, 800);
+}
+
+// ── Toast ──
+function showToast(msg) {
+  const c = document.getElementById('toast-container');
+  const t = document.createElement('div');
+  t.className = 'toast'; t.innerHTML = msg;
+  c.appendChild(t);
+  setTimeout(() => { t.classList.add('leaving'); setTimeout(() => t.remove(), 300); }, 2500);
+}
+
+// ── Carousel ──
+let slide = 0;
+const slides = document.querySelectorAll('.slide');
+const dotsEl = document.getElementById('carousel-dots');
+slides.forEach((_,i) => {
+  const d = document.createElement('button');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goSlide(i);
+  dotsEl.appendChild(d);
+});
+function goSlide(n) {
+  slides[slide].classList.remove('active');
+  dotsEl.querySelectorAll('.dot')[slide].classList.remove('active');
+  slide = (n + slides.length) % slides.length;
+  slides[slide].classList.add('active');
+  dotsEl.querySelectorAll('.dot')[slide].classList.add('active');
+}
+function moveSlide(d) { goSlide(slide + d); }
+const autoplay = setInterval(() => moveSlide(1), 4500);
+
+// ── User modal ──
+function openUserModal() { document.getElementById('user-modal').classList.add('open'); }
+function closeUserModal() { document.getElementById('user-modal').classList.remove('open'); }
+function closeUserModalOutside(e) { if(e.target===e.currentTarget) closeUserModal(); }
+
+async function loadUsers() {
+  const r = await fetch('/api/users');
+  const users = await r.json();
+  document.getElementById('user-list').innerHTML = users.map(u => `
+    <button onclick="selectUser(${u.id},'${u.name}')" style="
+      display:flex;align-items:center;gap:.8rem;padding:.9rem 1.1rem;
+      background:#fdfbff;border:2px solid var(--border);border-radius:12px;
+      cursor:pointer;transition:all .2s;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;
+      width:100%;text-align:left;color:var(--text)
+    " onmouseover="this.style.borderColor='var(--pink)';this.style.background='var(--pink-lt)'"
+       onmouseout="this.style.borderColor='var(--border)';this.style.background='#fdfbff'">
+      <span style="width:40px;height:40px;background:var(--pink-lt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem">👤</span>
+      ${u.name}
+    </button>`).join('');
+}
+
+async function selectUser(id, name) {
+  await fetch('/api/users/select', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ userId: id })
+  });
+  document.getElementById('user-label').textContent = name;
+  closeUserModal();
+  showToast(`👋 Welcome, ${name}!`);
+}
+
+async function checkUser() {
+  const r = await fetch('/api/users/me');
+  const d = await r.json();
+  if(d.loggedIn) document.getElementById('user-label').textContent = d.name;
+}
+
+// ── Products ──
+let allP = [], allC = [], activeC = 0;
+
+async function loadData() {
+  const r = await fetch('/api/products');
+  const d = await r.json();
+  allC = d.categories; allP = d.products;
+
+  const chips = document.getElementById('category-chips');
+  chips.innerHTML = `<button class="chip chip-active" onclick="filterCat(0,this)">✨ All</button>`;
+  allC.forEach(c => {
+    chips.innerHTML += `<button class="chip chip-inactive" onclick="filterCat(${c.categoryId},this)">${c.name}</button>`;
+  });
+  renderFeatured(allP);
+}
+
+function filterCat(id, btn) {
+  activeC = id;
+  document.querySelectorAll('#category-chips .chip').forEach(c => {
+    c.className = 'chip chip-inactive';
+  });
+  btn.className = 'chip chip-active';
+  const list = id===0 ? allP : allP.filter(p => p.categoryId===id);
+  renderFeatured(list);
+}
+
+function catName(id) { return (allC.find(c=>c.categoryId===id)||{name:''}).name; }
+
+function renderFeatured(list) {
+  const el = document.getElementById('featured-products');
+  el.innerHTML = '';
+  list.slice(0,6).forEach((p,i) => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.style.cursor = 'pointer';
+    div.style.animationDelay = `${i*.06}s`;
+    div.onclick = () => location.href = `product-detail.html?id=${p.productId}`;
+    div.innerHTML = `
+      <div style="overflow:hidden">
+        <img src="${p.imageUrl}" class="card-img" onerror="this.src='https://placehold.co/400x300/FFE5F0/FF4F8B?text=🧸'">
+      </div>
+      <div class="card-body">
+        <span class="card-category">${catName(p.categoryId)}</span>
+        <h3 class="card-title">${p.name}</h3>
+        <p class="card-desc">${p.description}</p>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:.5rem">
+          <span class="card-price">฿${p.price}</span>
+          <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();quickAdd(${p.productId},'${p.name}')">+ Cart</button>
+        </div>
+      </div>`;
+    el.appendChild(div);
+  });
+}
+
+async function quickAdd(id, name) {
+  await fetch('/api/cart', { method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin', body:JSON.stringify({productId:id,quantity:1}) });
+  showToast(`🛒 ${name} added to cart!`);
+  updateCartCount();
+}
+
+function updateCartCount() {
+  fetch('/api/cart',{credentials:'same-origin'}).then(r=>r.json()).then(c=>{
+    const count = c.reduce((t,i)=>t+Number(i.quantity),0);
+    document.getElementById('cart-count').textContent = count;
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadUsers(); checkUser(); loadData(); updateCartCount();
+});
+</script>
+</body>
+</html>

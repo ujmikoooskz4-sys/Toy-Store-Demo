@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Placed! — SuperNina's Toy Store</title>
+  <link rel="stylesheet" href="/css/theme.css">
+  <style>
+    body { display:flex; align-items:center; justify-content:center; min-height:100vh; padding:2rem; background:linear-gradient(135deg,#FFE5F0,#FFF3C4 50%,#E8F4FD); }
+    .success-card {
+      background:#fff; border-radius:var(--radius-xl);
+      padding:3rem 2.5rem; text-align:center; max-width:480px; width:100%;
+      box-shadow:0 24px 80px rgba(255,79,139,.2); border:2px solid var(--pink-lt);
+      animation:bounceIn .7s cubic-bezier(.34,1.56,.64,1) forwards;
+    }
+    .confetti { font-size:3.5rem; display:block; margin-bottom:1rem; animation:wiggle 1s ease .5s 2; }
+    .success-title { font-family:'Fredoka One',cursive; font-size:2rem; color:var(--text); margin-bottom:.5rem; }
+    .order-id-box { background:var(--bg); border:2px dashed var(--pink-lt); border-radius:var(--radius-sm); padding:1rem; margin:1.5rem 0; }
+    .order-id-label { font-size:.75rem; font-weight:900; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); }
+    .order-id-val { font-family:'Fredoka One',cursive; font-size:1.5rem; color:var(--pink); margin-top:.2rem; word-break:break-all; }
+    .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem; margin:1.5rem 0; }
+    .step { background:var(--bg); border-radius:var(--radius-sm); padding:.75rem .5rem; font-size:.78rem; font-weight:700; color:var(--muted); text-align:center; }
+    .step .step-icon { font-size:1.3rem; display:block; margin-bottom:.3rem; }
+    .step.done { background:var(--pink-lt); color:var(--pink-dk); }
+  </style>
+</head>
+<body>
+  <div class="success-card">
+    <span class="confetti">🎉</span>
+    <h1 class="success-title">Order Confirmed!</h1>
+    <p style="color:var(--muted);font-weight:600">Thank you for your purchase! Your toys are on their way 🚀</p>
+
+    <div class="order-id-box">
+      <div class="order-id-label">Order ID</div>
+      <div class="order-id-val" id="order-id">…</div>
+    </div>
+
+    <div class="steps">
+      <div class="step done"><span class="step-icon">✅</span>Ordered</div>
+      <div class="step"><span class="step-icon">📦</span>Packed</div>
+      <div class="step"><span class="step-icon">🚚</span>Shipped</div>
+    </div>
+
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:1.5rem">Payment confirmed • Cart cleared</p>
+
+    <div style="display:flex;flex-direction:column;gap:.7rem">
+      <a href="orders-history.html" class="btn btn-primary btn-lg" style="justify-content:center">📦 View My Orders</a>
+      <a href="index.html" class="btn btn-ghost" style="justify-content:center">← Back to Home</a>
+    </div>
+  </div>
+
+  <script>
+    const p = new URLSearchParams(location.search);
+    document.getElementById('order-id').textContent = '#' + p.get('orderId');
+  </script>
+</body>
+</html>

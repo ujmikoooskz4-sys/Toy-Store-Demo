@@ -1,0 +1,139 @@
+{
+  "categories": [
+    { "categoryId": 1, "name": "Action Figures" },
+    { "categoryId": 2, "name": "Board Games" },
+    { "categoryId": 3, "name": "Stuffed Animals" }
+  ],
+  "products": [
+    {
+      "productId": 101,
+      "categoryId": 1,
+      "name": "Super Hero Figure",
+      "description": "Poseable action figure with 10 points of articulation. Perfect for imaginative play.",
+      "price": 299,
+      "imageUrl": "https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?w=400",
+      "attributes": { "color": ["Red", "Blue", "Black"], "size": ["Small", "Large"] }
+    },
+    {
+      "productId": 102,
+      "categoryId": 1,
+      "name": "Robot Warrior",
+      "description": "Transforming robot warrior with light-up eyes and battle sounds.",
+      "price": 499,
+      "imageUrl": "https://images.unsplash.com/photo-1620459550440-a2d44e1b1ace?w=400",
+      "attributes": { "color": ["Silver", "Gold"] }
+    },
+    {
+      "productId": 103,
+      "categoryId": 1,
+      "name": "Dinosaur Rex",
+      "description": "Realistic T-Rex figure with movable jaw and textured skin.",
+      "price": 349,
+      "imageUrl": "https://images.unsplash.com/photo-1615395189689-4e4cce0a1a93?w=400",
+      "attributes": { "color": ["Green", "Brown"] }
+    },
+    {
+      "productId": 104,
+      "categoryId": 1,
+      "name": "Space Commander",
+      "description": "Astronaut action figure with removable helmet and accessories.",
+      "price": 279,
+      "imageUrl": "https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=400",
+      "attributes": { "color": ["White", "Orange"] }
+    },
+    {
+      "productId": 105,
+      "categoryId": 1,
+      "name": "Knight Fighter",
+      "description": "Medieval knight figure with armor, sword, and shield accessories.",
+      "price": 329,
+      "imageUrl": "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=400",
+      "attributes": { "color": ["Silver", "Bronze", "Black"] }
+    },
+    {
+      "productId": 201,
+      "categoryId": 2,
+      "name": "Family Trivia Quest",
+      "description": "Fun trivia board game for the whole family with 500+ questions across 6 categories.",
+      "price": 599,
+      "imageUrl": "https://images.unsplash.com/photo-1606503153255-59d5e417c4a5?w=400"
+    },
+    {
+      "productId": 202,
+      "categoryId": 2,
+      "name": "Castle Builder",
+      "description": "Strategic castle building game. Be the first to complete your fortress!",
+      "price": 749,
+      "imageUrl": "https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=400"
+    },
+    {
+      "productId": 203,
+      "categoryId": 2,
+      "name": "Jungle Adventure",
+      "description": "Cooperative board game where players explore the jungle together.",
+      "price": 649,
+      "imageUrl": "https://images.unsplash.com/photo-1569154941061-e231b4aa8ebb?w=400"
+    },
+    {
+      "productId": 204,
+      "categoryId": 2,
+      "name": "Number Race",
+      "description": "Educational math board game for kids ages 5-10. Makes learning fun!",
+      "price": 399,
+      "imageUrl": "https://images.unsplash.com/photo-1557924705-6f7b15b97b47?w=400"
+    },
+    {
+      "productId": 205,
+      "categoryId": 2,
+      "name": "Word Wizards",
+      "description": "Spelling and vocabulary board game. Great for building language skills.",
+      "price": 449,
+      "imageUrl": "https://images.unsplash.com/photo-1521169560-01d8b11db42a?w=400"
+    },
+    {
+      "productId": 301,
+      "categoryId": 3,
+      "name": "Classic Teddy Bear",
+      "description": "Super soft and huggable teddy bear made from premium plush material.",
+      "price": 299,
+      "imageUrl": "https://images.unsplash.com/photo-1559454403-b8fb88521f11?w=400",
+      "attributes": { "color": ["Brown", "Cream", "Pink"], "size": ["Small", "Medium", "Large"] }
+    },
+    {
+      "productId": 302,
+      "categoryId": 3,
+      "name": "Bunny Plush",
+      "description": "Adorable fluffy bunny with long floppy ears. Perfect bedtime companion.",
+      "price": 249,
+      "imageUrl": "https://images.unsplash.com/photo-1530325553241-4f6e7690cf36?w=400",
+      "attributes": { "color": ["White", "Grey", "Pink"], "size": ["Small", "Medium"] }
+    },
+    {
+      "productId": 303,
+      "categoryId": 3,
+      "name": "Elephant Buddy",
+      "description": "Gentle elephant stuffed animal with embroidered details and soft trunk.",
+      "price": 329,
+      "imageUrl": "https://images.unsplash.com/photo-1535557597501-0fee0a500c57?w=400",
+      "attributes": { "color": ["Grey", "Blue", "Purple"] }
+    },
+    {
+      "productId": 304,
+      "categoryId": 3,
+      "name": "Lion King Plush",
+      "description": "Majestic lion stuffed toy with fluffy mane. Roar-some cuddle buddy!",
+      "price": 379,
+      "imageUrl": "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400",
+      "attributes": { "color": ["Golden", "Brown"] }
+    },
+    {
+      "productId": 305,
+      "categoryId": 3,
+      "name": "Panda Bear",
+      "description": "Classic black and white panda plush with cute embroidered features.",
+      "price": 319,
+      "imageUrl": "https://images.unsplash.com/photo-1515775588353-77e8a498bdb7?w=400",
+      "attributes": { "size": ["Small", "Medium", "Large"] }
+    }
+  ]
+}

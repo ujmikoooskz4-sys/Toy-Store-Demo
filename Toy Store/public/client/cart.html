@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart — SuperNina's Toy Store</title>
+  <link rel="stylesheet" href="/css/theme.css">
+  <style>
+    .cart-item {
+      background:#fff; border-radius:var(--radius); padding:1.2rem 1.4rem;
+      display:flex; gap:1rem; align-items:center;
+      border:1.5px solid var(--border); box-shadow:var(--shadow-sm);
+      transition:all var(--transition); animation:fadeUp .4s ease both;
+    }
+    .cart-item:hover { border-color:var(--pink-lt); box-shadow:var(--shadow-md); }
+    .cart-item-img { width:80px; height:80px; object-fit:cover; border-radius:12px; flex-shrink:0; }
+    .cart-item-info { flex:1; min-width:0; }
+    .cart-item-name { font-family:'Fredoka One',cursive; font-size:1.05rem; }
+    .cart-item-attrs { font-size:.78rem; color:var(--muted); font-weight:600; margin:.15rem 0; }
+    .cart-item-price { font-weight:700; color:var(--pink); font-size:.9rem; }
+    .cart-item-total { font-family:'Fredoka One',cursive; font-size:1.1rem; color:var(--text); min-width:60px; text-align:right; }
+    .remove-btn { background:none; border:none; color:#e0c4d4; font-size:1.3rem; cursor:pointer; transition:color .2s; padding:.2rem; }
+    .remove-btn:hover { color:var(--pink); }
+    .cart-summary { background:#fff; border-radius:var(--radius); padding:1.8rem; box-shadow:var(--shadow-sm); border:1.5px solid var(--border); position:sticky; top:88px; }
+    .summary-row { display:flex; justify-content:space-between; align-items:center; padding:.5rem 0; border-bottom:1px solid var(--border); font-size:.9rem; font-weight:700; }
+    .summary-row.total { font-family:'Fredoka One',cursive; font-size:1.4rem; border:none; margin-top:.5rem; }
+    .cart-layout { display:grid; grid-template-columns:1fr 340px; gap:2rem; align-items:start; }
+    @media(max-width:900px) { .cart-layout { grid-template-columns:1fr; } .cart-summary { position:static; } }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">🧸 SuperNina's</a>
+  <ul class="navbar-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="cart.html" class="cart-link active">🛒 Cart <span class="cart-badge" id="cart-count">0</span></a></li>
+    <li><a href="orders-history.html">Orders</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="mobile-menu-btn" onclick="document.getElementById('mobile-menu').classList.toggle('open')">☰</button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">🏠 Home</a><a href="products.html">🧸 Products</a>
+  <a href="cart.html">🛒 Cart</a><a href="orders-history.html">📦 Orders</a><a href="contact.html">📍 Contact</a>
+</div>
+
+<div style="background:linear-gradient(135deg,#FFE5F0,#FFF3C4);padding:2.5rem 2rem 2rem;text-align:center">
+  <h1 class="section-title" style="font-size:2rem">🛒 Shopping Cart</h1>
+</div>
+
+<div class="container" style="padding:2.5rem 1.5rem 5rem">
+  <div class="cart-layout">
+    <div>
+      <div id="cart-items" class="stagger" style="display:flex;flex-direction:column;gap:1rem"></div>
+    </div>
+    <aside class="cart-summary animate-up">
+      <h2 style="font-family:'Fredoka One',cursive;font-size:1.2rem;margin-bottom:1.2rem">Order Summary</h2>
+      <div id="summary-items"></div>
+      <div class="summary-row total">
+        <span>Total</span>
+        <span class="text-pink">฿<span id="cart-total">0</span></span>
+      </div>
+      <button onclick="goToCheckout()" class="btn btn-green btn-lg" style="width:100%;justify-content:center;margin-top:1.2rem">
+        Checkout →
+      </button>
+      <a href="products.html" class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:.6rem">
+        ← Continue Shopping
+      </a>
+    </aside>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div><div class="footer-brand">🧸 SuperNina's</div><p style="font-size:.85rem;color:rgba(255,255,255,.5)">Bringing joy and imagination to children everywhere.</p></div>
+    <div><p class="footer-heading">Quick Links</p><a href="products.html">Products</a><a href="contact.html">Contact</a></div>
+    <div><p class="footer-heading">Contact</p><p>support@toystore.com</p><p>+66 53 123 456</p></div>
+    <div><p class="footer-heading">Follow Us</p><a href="#">📘 Facebook</a><a href="#">📸 Instagram</a></div>
+  </div>
+  <div class="footer-bottom">© 2026 SuperNina's Toy Store. All rights reserved.</div>
+</footer>
+
+<button id="chat-btn" onclick="document.getElementById('chat-box').classList.toggle('open')">💬</button>
+<div id="chat-box">
+  <div class="chat-header"><span>💬 Live Support</span><button onclick="document.getElementById('chat-box').classList.remove('open')" style="background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer">✕</button></div>
+  <div class="chat-messages" id="chat-messages"><div class="msg-bot">👋 Hi! How can we help you today?</div></div>
+  <div class="chat-input-row"><input id="chat-input" type="text" placeholder="Type a message…" onkeypress="if(event.key==='Enter')sendChat()"><button onclick="sendChat()">Send</button></div>
+</div>
+<div id="toast-container"></div>
+
+<script>
+function sendChat(){const i=document.getElementById('chat-input'),m=i.value.trim();if(!m)return;const b=document.getElementById('chat-messages');b.innerHTML+=`<div class="msg-user">${m}</div>`;i.value='';b.scrollTop=99999;setTimeout(()=>{b.innerHTML+=`<div class="msg-bot">Thank you! Our team will respond shortly 😊</div>`;b.scrollTop=99999;},800);}
+function showToast(msg){const c=document.getElementById('toast-container');const t=document.createElement('div');t.className='toast';t.innerHTML=msg;c.appendChild(t);setTimeout(()=>{t.classList.add('leaving');setTimeout(()=>t.remove(),300);},2500);}
+</script>
+<script src="cart.js"></script>
+</body>
+</html>

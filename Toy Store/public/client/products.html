@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products — SuperNina's Toy Store</title>
+  <link rel="stylesheet" href="/css/theme.css">
+  <style>
+    .filters-bar {
+      display: flex; flex-wrap: wrap; gap: .75rem; align-items: center;
+      background: #fff; padding: 1.2rem 1.5rem;
+      border-radius: var(--radius); box-shadow: var(--shadow-sm);
+      border: 1.5px solid var(--border); margin-bottom: 2rem;
+    }
+    .filters-bar input, .filters-bar select {
+      flex: 1; min-width: 160px;
+    }
+    .results-meta { font-size: .85rem; color: var(--muted); font-weight: 700; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">🧸 SuperNina's</a>
+  <ul class="navbar-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html" class="active">Products</a></li>
+    <li><a href="cart.html" class="cart-link">🛒 Cart <span class="cart-badge" id="cart-count">0</span></a></li>
+    <li><a href="orders-history.html">Orders</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="mobile-menu-btn" onclick="document.getElementById('mobile-menu').classList.toggle('open')">☰</button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">🏠 Home</a><a href="products.html">🧸 Products</a>
+  <a href="cart.html">🛒 Cart</a><a href="orders-history.html">📦 Orders</a><a href="contact.html">📍 Contact</a>
+</div>
+
+<!-- Page Header -->
+<div style="background:linear-gradient(135deg,#FFE5F0,#FFF3C4);padding:3rem 2rem 2rem;text-align:center">
+  <div class="container">
+    <h1 class="section-title" style="font-size:2.2rem">Our Toy Collection</h1>
+    <p class="section-sub mt-2">Find the perfect toy for every kid</p>
+  </div>
+</div>
+
+<div class="container" style="padding-top:2.5rem;padding-bottom:4rem">
+
+  <!-- Category chips -->
+  <div id="cat-chips" style="display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.5rem;animation:fadeUp .4s ease both"></div>
+
+  <!-- Filters -->
+  <div class="filters-bar animate-up">
+    <input class="input-field" id="search-input" type="text" placeholder="🔍 Search toys by name…" oninput="applyFilters()">
+    <select class="input-field" id="cat-select" style="max-width:200px" onchange="applyFilters()">
+      <option value="0">All Categories</option>
+    </select>
+    <select class="input-field" id="sort-select" style="max-width:200px" onchange="applyFilters()">
+      <option value="">Sort: Default</option>
+      <option value="name-asc">Name A → Z</option>
+      <option value="name-desc">Name Z → A</option>
+      <option value="price-asc">Price: Low → High</option>
+      <option value="price-desc">Price: High → Low</option>
+    </select>
+  </div>
+
+  <p class="results-meta" id="results-meta"></p>
+
+  <div id="product-grid" class="grid-3 stagger"></div>
+
+  <div id="no-results" class="empty-state hidden">
+    <div class="icon">🔍</div>
+    <h3>No toys found</h3>
+    <p>Try a different search or category</p>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div><div class="footer-brand">🧸 SuperNina's</div><p style="font-size:.85rem;color:rgba(255,255,255,.5)">Bringing joy and imagination to children everywhere.</p></div>
+    <div><p class="footer-heading">Quick Links</p><a href="products.html">Products</a><a href="cart.html">Cart</a><a href="orders-history.html">Orders</a><a href="contact.html">Contact</a></div>
+    <div><p class="footer-heading">Contact</p><p>support@toystore.com</p><p>+66 53 123 456</p><p>Nimman Road, Chiang Mai</p></div>
+    <div><p class="footer-heading">Follow Us</p><a href="#">📘 Facebook</a><a href="#">📸 Instagram</a><a href="#">🎵 TikTok</a></div>
+  </div>
+  <div class="footer-bottom">© 2026 SuperNina's Toy Store. All rights reserved.</div>
+</footer>
+
+<button id="chat-btn" onclick="document.getElementById('chat-box').classList.toggle('open')">💬</button>
+<div id="chat-box">
+  <div class="chat-header"><span>💬 Live Support</span><button onclick="document.getElementById('chat-box').classList.remove('open')" style="background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer">✕</button></div>
+  <div class="chat-messages" id="chat-messages"><div class="msg-bot">👋 Hi! How can we help you today?</div></div>
+  <div class="chat-input-row"><input id="chat-input" type="text" placeholder="Type a message…" onkeypress="if(event.key==='Enter')sendChat()"><button onclick="sendChat()">Send</button></div>
+</div>
+<div id="toast-container"></div>
+
+<script src="products.js"></script>
+</body>
+</html>
