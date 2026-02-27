@@ -10,7 +10,7 @@
       "categoryId": 1,
       "name": "Marin Kitagawa – My Dress-Up Darling",
       "description": "Marin poses playfully in her school uniform, highlighting her bright personality and fashionable charm.",
-      "price": 299,
+      "price": 659,
       "imageUrl": "https://cdna.artstation.com/p/assets/images/images/053/656/568/large/enrico-shin-seifuku-image1.jpg?1662715927",
       "imagePosition": "top",
       "attributes": { "color": ["Red", "Blue", "Black"], "size": ["Small", "Large"] }
@@ -20,7 +20,7 @@
       "categoryId": 1,
       "name": "Rei Ayanami – Evangelion",
       "description": "TRei sits quietly in her iconic plugsuit, beautifully sculpted to reflect her mysterious and emotionless aura.",
-      "price": 499,
+      "price": 749,
       "imagePosition": "top",
       "imageUrl": "https://i.pinimg.com/736x/bc/04/44/bc04445a5c1c4e5a20c04d2e1f7e2ac8.jpg",
       "attributes": { "color": ["Silver", "Gold"] }
@@ -30,7 +30,7 @@
       "categoryId": 1,
       "name": "Light Yagami & Ryuk – Death Note",
       "description": "A dark and dramatic statue featuring Light with the red apple and Ryuk looming behind him, capturing the intense supernatural atmosphere of Death Note.",
-      "price": 349,
+      "price": 928,
       "imagePosition": "top",
       "imageUrl": "https://i.pinimg.com/1200x/11/7c/d5/117cd53fd4d5734c91c31669b05c713e.jpg",
       "attributes": { "color": ["Green", "Brown"] }
@@ -40,7 +40,7 @@
       "categoryId": 1,
       "name": "Frieren – Frieren: Beyond Journey’s End",
       "description": "Elegant mage Frieren stands gracefully with her staff on a floral base, showcasing her calm yet powerful presence.",
-      "price": 279,
+      "price": 659,
       "imagePosition":"top",
       "imageUrl": "https://i.pinimg.com/736x/83/47/17/8347174408d5c76040ccb50649d4e395.jpg",
       "attributes": { "color": ["White", "Orange"] }
@@ -50,7 +50,7 @@
       "categoryId": 1,
       "name": "Denji - Chainsaw Man",
       "description": "An action-packed figure of Denji in Chainsaw Man form, featuring dynamic blood effects and an intense battle pose.",
-      "price": 329,
+      "price": 749,
       "imagePosition": "top",
       "imageUrl": "https://i.pinimg.com/736x/f9/63/35/f963350b147bcb08b342bb69fe6ccd25.jpg",
       "attributes": { "color": ["Silver", "Bronze", "Black"] }
