@@ -25,48 +25,120 @@
   <a href="index.html" class="navbar-brand">🧸 SuperNina's</a>
   <ul class="navbar-links">
     <li><a href="index.html">Home</a></li>
-    <li><a href="products.html">Products</a></li>
+    <li><a href="products.html">Products</a></li> <!-- ✅ FIXED -->
     <li><a href="cart.html" class="cart-link">🛒 Cart <span class="cart-badge" id="cart-count">0</span></a></li>
     <li><a href="orders-history.html">Orders</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
   <button class="mobile-menu-btn" onclick="document.getElementById('mobile-menu').classList.toggle('open')">☰</button>
 </nav>
+
 <div class="mobile-menu" id="mobile-menu">
-  <a href="index.html">🏠 Home</a><a href="products.html">🧸 Products</a>
-  <a href="cart.html">🛒 Cart</a><a href="orders-history.html">📦 Orders</a><a href="contact.html">📍 Contact</a>
+  <a href="index.html">🏠 Home</a>
+  <a href="products.html">🧸 Products</a>
+  <a href="cart.html">🛒 Cart</a>
+  <a href="orders-history.html">📦 Orders</a>
+  <a href="contact.html">📍 Contact</a>
 </div>
 
 <div class="container" style="padding:2.5rem 1.5rem 5rem">
   <div class="breadcrumb animate-in">
-    <a href="index.html">Home</a> › <a href="products.html">Products</a> › <span id="breadcrumb-name">…</span>
+    <a href="index.html">Home</a> › 
+    <a href="products.html">Products</a> › 
+    <span id="breadcrumb-name">…</span>
   </div>
   <div id="product-detail" class="animate-up"></div>
 </div>
 
 <footer class="footer">
   <div class="footer-grid">
-    <div><div class="footer-brand">🧸 SuperNina's</div><p style="font-size:.85rem;color:rgba(255,255,255,.5)">Bringing joy and imagination to children everywhere.</p></div>
-    <div><p class="footer-heading">Quick Links</p><a href="products.html">Products</a><a href="cart.html">Cart</a><a href="contact.html">Contact</a></div>
-    <div><p class="footer-heading">Contact</p><p>support@toystore.com</p><p>+66 53 123 456</p></div>
-    <div><p class="footer-heading">Follow Us</p><a href="#">📘 Facebook</a><a href="#">📸 Instagram</a></div>
+    <div>
+      <div class="footer-brand">🧸 SuperNina's</div>
+      <p style="font-size:.85rem;color:rgba(255,255,255,.5)">
+        Bringing joy and imagination to children everywhere.
+      </p>
+    </div>
+    <div>
+      <p class="footer-heading">Quick Links</p>
+      <a href="products.html">Products</a>
+      <a href="cart.html">Cart</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div>
+      <p class="footer-heading">Contact</p>
+      <p>support@toystore.com</p>
+      <p>+66 53 123 456</p>
+    </div>
+    <div>
+      <p class="footer-heading">Follow Us</p>
+      <a href="#">📘 Facebook</a>
+      <a href="#">📸 Instagram</a>
+    </div>
   </div>
-  <div class="footer-bottom">© 2026 SuperNina's Toy Store. All rights reserved.</div>
+  <div class="footer-bottom">
+    © 2026 SuperNina's Toy Store. All rights reserved.
+  </div>
 </footer>
 
 <button id="chat-btn" onclick="document.getElementById('chat-box').classList.toggle('open')">💬</button>
+
 <div id="chat-box">
-  <div class="chat-header"><span>💬 Live Support</span><button onclick="document.getElementById('chat-box').classList.remove('open')" style="background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer">✕</button></div>
-  <div class="chat-messages" id="chat-messages"><div class="msg-bot">👋 Hi! How can we help you today?</div></div>
-  <div class="chat-input-row"><input id="chat-input" type="text" placeholder="Type a message…" onkeypress="if(event.key==='Enter')sendChat()"><button onclick="sendChat()">Send</button></div>
+  <div class="chat-header">
+    <span>💬 Live Support</span>
+    <button onclick="document.getElementById('chat-box').classList.remove('open')" 
+      style="background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer">✕</button>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="msg-bot">👋 Hi! How can we help you today?</div>
+  </div>
+  <div class="chat-input-row">
+    <input id="chat-input" type="text" placeholder="Type a message…" 
+      onkeypress="if(event.key==='Enter')sendChat()">
+    <button onclick="sendChat()">Send</button>
+  </div>
 </div>
+
 <div id="toast-container"></div>
 
 <script>
-function sendChat(){const i=document.getElementById('chat-input'),m=i.value.trim();if(!m)return;const b=document.getElementById('chat-messages');b.innerHTML+=`<div class="msg-user">${m}</div>`;i.value='';b.scrollTop=99999;setTimeout(()=>{b.innerHTML+=`<div class="msg-bot">Thank you! Our team will respond shortly 😊</div>`;b.scrollTop=99999;},800);}
-function showToast(msg){const c=document.getElementById('toast-container');const t=document.createElement('div');t.className='toast';t.innerHTML=msg;c.appendChild(t);setTimeout(()=>{t.classList.add('leaving');setTimeout(()=>t.remove(),300);},2500);}
-function updateCartCount(){fetch('/api/cart',{credentials:'same-origin'}).then(r=>r.json()).then(c=>{document.getElementById('cart-count').textContent=c.reduce((t,i)=>t+Number(i.quantity),0);});}
+function sendChat(){
+  const i=document.getElementById('chat-input');
+  const m=i.value.trim();
+  if(!m)return;
+  const b=document.getElementById('chat-messages');
+  b.innerHTML+=`<div class="msg-user">${m}</div>`;
+  i.value='';
+  b.scrollTop=99999;
+  setTimeout(()=>{
+    b.innerHTML+=`<div class="msg-bot">Thank you! Our team will respond shortly 😊</div>`;
+    b.scrollTop=99999;
+  },800);
+}
+
+function showToast(msg){
+  const c=document.getElementById('toast-container');
+  const t=document.createElement('div');
+  t.className='toast';
+  t.innerHTML=msg;
+  c.appendChild(t);
+  setTimeout(()=>{
+    t.classList.add('leaving');
+    setTimeout(()=>t.remove(),300);
+  },2500);
+}
+
+function updateCartCount(){
+  fetch('/api/cart',{credentials:'same-origin'})
+    .then(r=>r.json())
+    .then(c=>{
+      document.getElementById('cart-count').textContent=
+        c.reduce((t,i)=>t+Number(i.quantity),0);
+    });
+}
+
+updateCartCount();
 </script>
+
 <script src="product-detail.js"></script>
 </body>
 </html>

@@ -87,7 +87,7 @@ function renderGrid(list) {
     card.onclick = () => location.href = `product-detail.html?id=${p.productId}`;
     card.innerHTML = `
       <div style="overflow:hidden">
-        <img src="${p.imageUrl}" class="card-img" onerror="this.src='https://placehold.co/400x300/FFE5F0/FF4F8B?text=🧸'">
+        <img src="${p.imageUrl}" class="card-img" style="object-position:${p.imagePosition||'center'}" onerror="this.src='https://placehold.co/400x300/FFE5F0/FF4F8B?text=🧸'">
       </div>
       <div class="card-body">
         <span class="card-category">${catName(p.categoryId)}</span>

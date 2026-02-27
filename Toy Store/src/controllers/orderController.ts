@@ -35,13 +35,14 @@ export function createOrder(req: Request, res: Response) {
       return res.status(400).json({ message: "Cart is empty" });
     }
 
-    const products = readJSON(productsFile);
+    const data = readJSON(productsFile);
+    const productList = data.products ?? data; // support both {products:[]} and flat []
     const orders = readJSON(ordersFile);
 
     let totalAmount = 0;
 
     const orderItems = cart.map((item: any) => {
-      const product = products.find((p: any) => p.id == item.productId);
+      const product = productList.find((p: any) => p.productId == item.productId || p.id == item.productId);
 
       const price = product?.price || 0;
       const quantity = Number(item.quantity);
@@ -58,10 +59,11 @@ export function createOrder(req: Request, res: Response) {
 
     const newOrder = {
       id: Date.now(),
+      customerId: session.customerId || null,
       name,
       address,
       phone,
-      payment,              // ✅ ADDED
+      payment,
       items: orderItems,
       total: totalAmount,
       status: "Pending",
@@ -88,8 +90,22 @@ export function createOrder(req: Request, res: Response) {
 
 export function getOrders(req: Request, res: Response) {
   try {
-    const orders = readJSON(ordersFile);
-    res.json(orders);
+    const session = req.session as any;
+    const allOrders = readJSON(ordersFile);
+
+    // If called from admin (adminLoggedIn), return all orders
+    if (session.adminLoggedIn) {
+      return res.json(allOrders);
+    }
+
+    // For customers: filter by their customerId
+    const customerId = session.customerId;
+    if (!customerId) {
+      return res.json([]); // no user selected → empty list
+    }
+
+    const customerOrders = allOrders.filter((o: any) => o.customerId == customerId);
+    res.json(customerOrders);
   } catch (error) {
     console.error("Get Orders Error:", error);
     res.status(500).json({ message: "Server error" });
