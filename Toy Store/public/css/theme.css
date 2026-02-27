@@ -5,8 +5,20 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;500;600;700;800;900&display=swap');
 
+/* ─── Change2- add font ─── */
+/* ─────────────────────────────────────────────
+   FONT SYSTEM
+───────────────────────────────────────────── */
+:root {
+  --font-logo: 'Fredoka One', cursive;
+  --font-heading: 'Fredoka One', cursive;
+  --font-body: 'Nunito', sans-serif;
+  --font-romantic: 'Pinyon Script', cursive;
+}
+
 /* ─── CSS Variables ─── */
 :root {
+  --red:     #920031;
   --pink:     #FF4F8B;
   --pink-lt:  #FFD6E7;
   --pink-dk:  #D93070;
@@ -17,33 +29,63 @@
   --mint:     #43E97B;
   --purple:   #A855F7;
   --orange:   #FF8C42;
+
   --bg:       #FFF8F0;
   --card:     #FFFFFF;
   --text:     #1A1A2E;
   --muted:    #6B6B8A;
   --border:   #F0E8FF;
+
   --shadow-sm: 0 2px 8px rgba(255,79,139,.10);
   --shadow-md: 0 6px 24px rgba(255,79,139,.15);
   --shadow-lg: 0 16px 48px rgba(255,79,139,.20);
+
   --radius:   18px;
   --radius-sm:10px;
   --radius-xl:28px;
+
   --transition: .22s cubic-bezier(.4,0,.2,1);
 }
 
 /* ─── Reset & Base ─── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box;
+   margin: 0; 
+   padding: 0; }
 
 html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Nunito', sans-serif;
-  font-size: 16px;
+  font-family: var(--font-body); /* ─── change here ─── */
   line-height: 1.6;
   overflow-x: hidden;
 }
+
+/* ─── change here 3 ─── */
+/* ─────────────────────────────────────────────
+   TYPOGRAPHY SYSTEM
+───────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: .3px;
+}
+
+.navbar-brand,
+.footer-brand,
+.admin-nav-brand {
+  font-family: var(--font-logo);
+}
+
+.romantic-text {
+  font-family: var(--font-romantic);
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+}
+
+.text-muted { color: var(--muted); }
+.text-pink { color: var(--pink); }
+.fw-black { font-weight: 900; }
 
 /* ─── Decorative BG dots ─── */
 body::before {
@@ -57,6 +99,56 @@ body::before {
   pointer-events: none;
   z-index: 0;
 }
+
+/* ───  change here Hero PNG with premium shadow ─── */
+/* Container for the PNG to ensure it doesn't overflow */
+.hero-img-wrap {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-png {
+  width: 180px; /* Adjust size based on your PNG resolution */
+  height: auto;
+  filter: drop-shadow(0 20px 30px rgba(255, 79, 139, 0.3)); /* Premium soft shadow */
+  animation: float 4s ease-in-out infinite; /* Added subtle movement */
+}
+
+/* Floating Animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+/* ─── change here ─── */
+/* 1. Marquee Animation */
+.marquee-bar {
+ background: var(--red);
+  color: white;
+  padding: 12px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: 'Fredoka One', cursive;
+}
+
+.marquee-track {
+  display: inline-block;
+  animation: scrollLeft 30s linear infinite;
+}
+
+.marquee-track span {
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  padding-right: 50px;
+}
+
+@keyframes scrollLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 
 /* ─── Navbar ─── */
 .navbar {
