@@ -69,6 +69,7 @@
   </ul>
   <button class="mobile-menu-btn" onclick="toggleMobile()">☰</button>
 </nav>
+
 <div class="mobile-menu" id="mobile-menu">
   <a href="index.html">🏠 Home</a>
   <a href="products.html">🧸 Products</a>
@@ -375,9 +376,37 @@ function updateCartCount() {
   });
 }
 
+  // ── Mobile menu ──
+function toggleMobile() {
+  const menu = document.getElementById('mobile-menu');
+  if (menu) {
+    menu.classList.toggle('open');
+  }
+}
+
+// ✅ Auto close when resizing to desktop
+window.addEventListener('resize', () => {
+  const menu = document.getElementById('mobile-menu');
+  if (!menu) return;
+
+  if (window.innerWidth > 768) {
+    menu.classList.remove('open');
+  }
+});
+
+// ✅ Close after clicking a link
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('#mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.remove('open');
+    });
+  });
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   loadUsers(); checkUser(); loadData(); updateCartCount();
 });
 </script>
+
 </body>
 </html>
