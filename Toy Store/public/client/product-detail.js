@@ -1,10 +1,8 @@
 let qty = 1;
-const selectedAttrs = {};
 
 document.addEventListener('DOMContentLoaded', async () => {
   const id = new URLSearchParams(location.search).get('id');
 
-  // ✅ FIXED redirect
   if (!id) {
     location.href = 'products.html';
     return;
@@ -34,30 +32,19 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.title = `${p.name} — SuperNina's`;
   document.getElementById('breadcrumb-name').textContent = p.name;
 
-  // Pre-select first attributes
-  if (p.attributes) {
-    for (const key in p.attributes) {
-      selectedAttrs[key] = p.attributes[key][0];
-    }
-  }
-
-  let attrsHTML = '';
-  if (p.attributes) {
-    for (const key in p.attributes) {
-      attrsHTML += `
-        <div style="margin-top:1.2rem">
-          <label class="form-label" style="text-transform:capitalize">${key}</label>
-          <div style="display:flex;flex-wrap:wrap;gap:.5rem" id="attr-${key}">
-            ${p.attributes[key].map((v,i) => `
-              <button class="attr-btn${i===0?' selected':''}" 
-                      onclick="selectAttr('${key}','${v}',this)">
-                ${v}
-              </button>
-            `).join('')}
-          </div>
-        </div>`;
-    }
-  }
+  const infoHTML = `
+    <div style="margin-top:1.5rem;display:flex;flex-direction:column;gap:.9rem">
+      ${p.manufacturer ? `
+        <div style="display:flex;gap:.75rem;align-items:flex-start">
+          <span style="font-weight:700;min-width:130px;color:var(--dark)">🏭 Manufactured by</span>
+          <span style="color:var(--muted)">${p.manufacturer}</span>
+        </div>` : ''}
+      ${p.details ? `
+        <div style="display:flex;gap:.75rem;align-items:flex-start">
+          <span style="font-weight:700;min-width:130px;color:var(--dark)">📋 Details</span>
+          <span style="color:var(--muted);line-height:1.6">${p.details}</span>
+        </div>` : ''}
+    </div>`;
 
   document.getElementById('product-detail').innerHTML = `
     <div class="detail-grid">
@@ -77,7 +64,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           ${p.description}
         </p>
 
-        ${attrsHTML}
+        ${infoHTML}
 
         <div style="margin-top:1.5rem">
           <label class="form-label">Quantity</label>
@@ -94,20 +81,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         </button>
 
         <div style="margin-top:1rem;display:flex;gap:.75rem">
-          
-          <!-- ✅ FIXED HERE -->
           <a href="products.html" 
              class="btn btn-ghost"
              style="flex:1;justify-content:center;font-size:.88rem">
              ← Back
           </a>
-
           <a href="cart.html" 
              class="btn btn-yellow"
              style="flex:1;justify-content:center;font-size:.88rem">
              View Cart 🛒
           </a>
-
         </div>
       </div>
     </div>`;
@@ -120,31 +103,17 @@ function changeQty(delta) {
   document.getElementById('qty-val').textContent = qty;
 }
 
-function selectAttr(key, val, btn) {
-  selectedAttrs[key] = val;
-  document
-    .querySelectorAll(`#attr-${key} .attr-btn`)
-    .forEach(b => b.classList.remove('selected'));
-
-  btn.classList.add('selected');
-}
-
 async function addToCart(productId) {
   const btn = document.querySelector('.add-btn');
 
   btn.textContent = '✓ Added!';
-  btn.style.background =
-    'linear-gradient(135deg,#43E97B,#38F9D7)';
+  btn.style.background = 'linear-gradient(135deg,#43E97B,#38F9D7)';
 
   await fetch('/api/cart', {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    credentials:'same-origin',
-    body: JSON.stringify({
-      productId,
-      quantity: qty,
-      attributes: selectedAttrs
-    })
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'same-origin',
+    body: JSON.stringify({ productId, quantity: qty })
   });
 
   showToast('🛒 Added to cart!');
