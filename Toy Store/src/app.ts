@@ -13,6 +13,7 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true}))
 
 /* =========================
    SESSION CONFIG
@@ -22,6 +23,7 @@ app.use(
     secret: "toy-store-secret",
     resave: false,
     saveUninitialized: false,
+    cookie: { secure: false }
   })
 );
 
@@ -35,10 +37,18 @@ app.use("/css", express.static(path.join(process.cwd(), "public/css")));
 // CLIENT
 app.use(express.static(path.join(process.cwd(), "public/client")));
 
-// ADMIN
+
 app.use(
   "/admin",
-  requireAdmin,
+  (req, res, next) => {
+    if (
+      req.path === "/login.html" ||
+      req.path === "/login.js"
+    ) {
+      return next();
+    }
+    requireAdmin(req, res, next);
+  },
   express.static(path.join(process.cwd(), "public/admin"))
 );
 
@@ -53,7 +63,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/users", userRoutes);
 
 // Admin APIs (protected)
-app.use("/api/admin", requireAdmin, adminRoutes);
+app.use("/api/admin", adminRoutes); 
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
