@@ -1,13 +1,11 @@
-import { Request, Response, NextFunction } from "express";
-
 export function requireAdmin(
-  req: Request,
-  res: Response,
-  next: NextFunction
+  req: any,
+  res: any,
+  next: any
 ) {
-  if (!req.session.user || req.session.user.role !== "admin") {
-    return res.redirect("/login.html"); // send non-admin away
+  if(req.session?.user?.role === "admin") {
+    return next();
   }
-
-  next();
-}
+    return res.redirect("/admin/login.html"); // send non-admin away
+  }
+  

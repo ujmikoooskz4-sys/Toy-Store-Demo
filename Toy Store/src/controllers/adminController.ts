@@ -1,10 +1,16 @@
 import { Request, Response } from "express";
 
 export function adminLogin(req: any, res: Response) {
+
   const { username, password } = req.body;
 
-  if (username === "admin" && password === "1234") {
-    req.session.isAdmin = true;
+  if (username === "admin" && password === "123456") {
+    req.session.user = { 
+      id: 0,
+      name: "Admin",
+      role: "admin"
+    };
+
     return res.json({ message: "Login successful" });
   }
 
@@ -12,6 +18,7 @@ export function adminLogin(req: any, res: Response) {
 }
 
 export function adminLogout(req: any, res: Response) {
-  req.session.isAdmin = false;
-  res.json({ message: "Logged out" });
+  req.session.destroy(() => {
+     res.json({ message: "Logged out" });
+  });
 }
