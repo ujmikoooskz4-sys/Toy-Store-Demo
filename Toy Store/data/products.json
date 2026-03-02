@@ -1,8 +1,21 @@
 {
   "categories": [
-    { "categoryId": 1, "name": "Action Figures" },
-    { "categoryId": 2, "name": "Board Games" },
-    { "categoryId": 3, "name": "Stuffed Animals" }
+    {
+      "categoryId": 1,
+      "name": "Anime Figures"
+    },
+    {
+      "categoryId": 2,
+      "name": "Board Games"
+    },
+    {
+      "categoryId": 3,
+      "name": "Stuffed Animals"
+    },
+    {
+      "categoryId": 4,
+      "name": "Educational Toys"
+    }
   ],
   "products": [
     {
@@ -10,58 +23,76 @@
       "categoryId": 1,
       "name": "Marin Kitagawa – My Dress-Up Darling",
       "description": "Marin poses playfully in her school uniform, highlighting her bright personality and fashionable charm.",
-      "price": 299,
+      "price": 659,
       "imageUrl": "https://cdna.artstation.com/p/assets/images/images/053/656/568/large/enrico-shin-seifuku-image1.jpg?1662715927",
       "imagePosition": "top",
-      "attributes": { "color": ["Red", "Blue", "Black"], "size": ["Small", "Large"] }
+      "manufacturer": "Good Smile Company",
+      "details": "Scale 1/7 • Height 24 cm • PVC & ABS • Includes display base • Ages 15+"
     },
     {
       "productId": 102,
       "categoryId": 1,
       "name": "Rei Ayanami – Evangelion",
-      "description": "TRei sits quietly in her iconic plugsuit, beautifully sculpted to reflect her mysterious and emotionless aura.",
-      "price": 499,
+      "description": "Rei sits quietly in her iconic plugsuit, beautifully sculpted to reflect her mysterious and emotionless aura.",
+      "price": 749,
       "imagePosition": "top",
       "imageUrl": "https://i.pinimg.com/736x/bc/04/44/bc04445a5c1c4e5a20c04d2e1f7e2ac8.jpg",
-      "attributes": { "color": ["Silver", "Gold"] }
+      "manufacturer": "Kotobukiya",
+      "details": "Scale 1/7 • Height 22 cm • PVC & ABS • Includes hexagonal base • Ages 15+"
     },
     {
       "productId": 103,
       "categoryId": 1,
       "name": "Light Yagami & Ryuk – Death Note",
       "description": "A dark and dramatic statue featuring Light with the red apple and Ryuk looming behind him, capturing the intense supernatural atmosphere of Death Note.",
-      "price": 349,
+      "price": 928,
       "imagePosition": "top",
       "imageUrl": "https://i.pinimg.com/1200x/11/7c/d5/117cd53fd4d5734c91c31669b05c713e.jpg",
-      "attributes": { "color": ["Green", "Brown"] }
+      "manufacturer": "Banpresto",
+      "details": "Scale 1/8 • Height 30 cm • PVC • Diorama-style dual figure set • Ages 15+"
     },
     {
       "productId": 104,
       "categoryId": 1,
-      "name": "Frieren – Frieren: Beyond Journey’s End",
+      "name": "Frieren – Frieren: Beyond Journey's End",
       "description": "Elegant mage Frieren stands gracefully with her staff on a floral base, showcasing her calm yet powerful presence.",
-      "price": 279,
-      "imagePosition":"top",
+      "price": 659,
+      "imagePosition": "top",
       "imageUrl": "https://i.pinimg.com/736x/83/47/17/8347174408d5c76040ccb50649d4e395.jpg",
-      "attributes": { "color": ["White", "Orange"] }
+      "manufacturer": "Aquamarine",
+      "details": "Scale 1/7 • Height 26 cm • PVC & ABS • Floral scenic base included • Ages 15+"
     },
     {
       "productId": 105,
       "categoryId": 1,
-      "name": "Denji - Chainsaw Man",
+      "name": "Denji – Chainsaw Man",
       "description": "An action-packed figure of Denji in Chainsaw Man form, featuring dynamic blood effects and an intense battle pose.",
-      "price": 329,
+      "price": 5699,
       "imagePosition": "top",
-      "imageUrl": "https://i.pinimg.com/736x/f9/63/35/f963350b147bcb08b342bb69fe6ccd25.jpg",
-      "attributes": { "color": ["Silver", "Bronze", "Black"] }
+      "imageUrl": "https://www.sideshow.com/cdn-cgi/image/height=850,quality=90,f=auto/https://www.sideshow.com/storage/product-images/912560/denjichainsaw-man-deluxe-bonus-version_chainsaw-man_gallery_66bb9814a8dfc.jpg",
+      "manufacturer": "Good Smile Company",
+      "details": "Scale 1/7 • Height 28 cm • PVC & ABS • Splatter effect parts included • Ages 18+"
+    },
+    {
+      "productId": 106,
+      "categoryId": 1,
+      "name": "Kaido the Beast – One Piece",
+      "description": "Kaido the Beast stands in his imposing form with his signature red and black armor, showcasing his terrifying presence.",
+      "price": 829,
+      "imagePosition": "top",
+      "imageUrl": "https://www.sideshow.com/cdn-cgi/image/height=850,quality=90,f=auto/https://www.sideshow.com/storage/product-images/913432/kaido-the-beast_one-piece_gallery_664d2f67c7450.jpg",
+      "manufacturer": "MegaHouse",
+      "details": "Scale 1/8 • Height 32 cm • PVC & ABS • Dragon form base included • Ages 15+"
     },
     {
       "productId": 201,
       "categoryId": 2,
-      "name": "Family Trivia Quest",
-      "description": "Fun trivia board game for the whole family with 500+ questions across 6 categories.",
-      "price": 599,
-      "imageUrl": "https://images.unsplash.com/photo-1606503153255-59d5e417c4a5?w=400"
+      "name": "Catan (6th Edition)",
+      "description": "Trade, build and settle the island of Catan in this legendary strategy game. Collect resources, build roads and cities, and outsmart rivals to reach 10 victory points first.",
+      "price": 1299,
+      "imageUrl": "https://i.pinimg.com/736x/cf/24/16/cf2416d50a8ff2c18da9f4ce568dbe7d.jpg",
+      "manufacturer": "Catan Studio",
+      "details": "Players: 3–4 • Age: 10+ • Play time: 60–120 min • Includes 19 terrain tiles, cards & dice"
     },
     {
       "productId": 202,
@@ -69,7 +100,9 @@
       "name": "Castle Builder",
       "description": "Strategic castle building game. Be the first to complete your fortress!",
       "price": 749,
-      "imageUrl": "https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=400"
+      "imageUrl": "https://i.pinimg.com/1200x/e5/72/31/e57231c1b1644e40e13abb33b81042fa.jpg",
+      "manufacturer": "Ravensburger",
+      "details": "Players: 2–4 • Age: 8+ • Play time: 45–60 min • Includes castle tiles, moat pieces & score board"
     },
     {
       "productId": 203,
@@ -77,7 +110,9 @@
       "name": "Jungle Adventure",
       "description": "Cooperative board game where players explore the jungle together.",
       "price": 649,
-      "imageUrl": "https://images.unsplash.com/photo-1569154941061-e231b4aa8ebb?w=400"
+      "imageUrl": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSmVB_nE58AhpdlyhOr3oOgf-eXUjf1J42o3eOJvtby4fJpAAoWwJ_lJS8IrBURRkrQz8RMuLAxHex3uq2azu0MIi0X-rth-DspsklZk5mZ",
+      "manufacturer": "Peaceable Kingdom",
+      "details": "Players: 2–4 • Age: 6+ • Play time: 20–30 min • Cooperative • Includes jungle map & animal tokens"
     },
     {
       "productId": 204,
@@ -85,7 +120,9 @@
       "name": "Number Race",
       "description": "Educational math board game for kids ages 5-10. Makes learning fun!",
       "price": 399,
-      "imageUrl": "https://images.unsplash.com/photo-1557924705-6f7b15b97b47?w=400"
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcStAbAHumvM3Qdo0G7fxsDo9JjNkXg9zDNBUZnjQ5zEZZV201m1sK6yFsnWCYvc3o2ZqRS3a_hM0V8uL577Tq3w7oE8gKSHSDjm-Uh8rTnMzPeKLkzZC7HhGQ",
+      "manufacturer": "Learning Resources",
+      "details": "Players: 2–4 • Age: 5–10 • Play time: 20 min • Covers addition & subtraction • Includes number cards & dice"
     },
     {
       "productId": 205,
@@ -93,7 +130,19 @@
       "name": "Word Wizards",
       "description": "Spelling and vocabulary board game. Great for building language skills.",
       "price": 449,
-      "imageUrl": "https://images.unsplash.com/photo-1521169560-01d8b11db42a?w=400"
+      "imageUrl": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQQZgVfqOD0bbcBzY1F2TOVMPf-dQ3ds6USGc5UOXM3hlc1tlw3fki4NJWogN2QoeZbBhzDCe58jFo0SHhcl89_tXccUHo369Rrt1rcbszYyFDDikd_a90N",
+      "manufacturer": "Lakeshore Learning",
+      "details": "Players: 2–6 • Age: 7+ • Play time: 30 min • 200 word cards across 4 difficulty levels"
+    },
+    {
+      "productId": 206,
+      "categoryId": 2,
+      "name": "Mystery Mansion",
+      "description": "Thrilling deduction board game — search the mansion, find clues, and unmask the mystery guest before time runs out.",
+      "price": 699,
+      "imageUrl": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTK3lp44tDwcP5mnrIZErb4wFUzNNeC1xyA2n7Bl4Z0lShxTgVBEhTwNjPucHXooUS6QHP_Y-5jZPSso-roYDIwTkM6k_tms27Z_gye3xf-o3z40VvABCfT1g",
+      "manufacturer": "Hasbro",
+      "details": "Players: 2–6 • Age: 8+ • Play time: 45–60 min • Includes detective notebook, weapon & character cards"
     },
     {
       "productId": 301,
@@ -101,8 +150,9 @@
       "name": "Classic Teddy Bear",
       "description": "Super soft and huggable teddy bear made from premium plush material.",
       "price": 299,
-      "imageUrl": "https://images.unsplash.com/photo-1559454403-b8fb88521f11?w=400",
-      "attributes": { "color": ["Brown", "Cream", "Pink"], "size": ["Small", "Medium", "Large"] }
+      "imageUrl": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRjtH8QL06IvGOmdNjnRKHoTDMamLp86sapsLnTP9fNQUEP0EjCPPWMeeTBzgEcULQVcNLiB05_Y9kq7JGuLUZaouWcT2BCiAmgJVsHPJ8",
+      "manufacturer": "Melissa & Doug",
+      "details": "Material: Premium polyester plush • Filling: PP cotton • Machine washable • CE certified • Ages 0+"
     },
     {
       "productId": 302,
@@ -111,7 +161,8 @@
       "description": "Adorable fluffy bunny with long floppy ears. Perfect bedtime companion.",
       "price": 249,
       "imageUrl": "https://images.unsplash.com/photo-1530325553241-4f6e7690cf36?w=400",
-      "attributes": { "color": ["White", "Grey", "Pink"], "size": ["Small", "Medium"] }
+      "manufacturer": "Jellycat",
+      "details": "Material: Super-soft plush fabric • Filling: PP cotton • Surface washable • CE certified • Ages 0+"
     },
     {
       "productId": 303,
@@ -120,7 +171,8 @@
       "description": "Gentle elephant stuffed animal with embroidered details and soft trunk.",
       "price": 329,
       "imageUrl": "https://images.unsplash.com/photo-1535557597501-0fee0a500c57?w=400",
-      "attributes": { "color": ["Grey", "Blue", "Purple"] }
+      "manufacturer": "Steiff",
+      "details": "Material: Velboa plush • Embroidered eyes & nose • Filling: PP cotton • Hand wash only • Ages 3+"
     },
     {
       "productId": 304,
@@ -129,7 +181,8 @@
       "description": "Majestic lion stuffed toy with fluffy mane. Roar-some cuddle buddy!",
       "price": 379,
       "imageUrl": "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400",
-      "attributes": { "color": ["Golden", "Brown"] }
+      "manufacturer": "Aurora World",
+      "details": "Material: High-pile plush mane & velboa body • Filling: PP cotton • Surface washable • Ages 3+"
     },
     {
       "productId": 305,
@@ -138,7 +191,78 @@
       "description": "Classic black and white panda plush with cute embroidered features.",
       "price": 319,
       "imageUrl": "https://images.unsplash.com/photo-1515775588353-77e8a498bdb7?w=400",
-      "attributes": { "size": ["Small", "Medium", "Large"] }
+      "manufacturer": "Gund",
+      "details": "Material: Soft polyester plush • Embroidered nose & eyes • Machine washable • CE certified • Ages 1+"
+    },
+    {
+      "productId": 306,
+      "categoryId": 3,
+      "name": "Corgi Puppy Plush",
+      "description": "Chubby and irresistibly cute Corgi puppy stuffed toy with soft golden fur and floppy ears.",
+      "price": 289,
+      "imageUrl": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400",
+      "manufacturer": "Jellycat",
+      "details": "Material: Premium plush fabric • Filling: PP cotton • Surface washable • CE certified • Ages 0+"
+    },
+    {
+      "productId": 401,
+      "categoryId": 4,
+      "name": "Rainbow Stacking Rings",
+      "description": "Classic stacking toy that teaches colors, size sorting, and fine motor skills for toddlers.",
+      "price": 199,
+      "imageUrl": "https://images.unsplash.com/photo-1585155770447-2f66e2a397b5?w=400",
+      "manufacturer": "Fisher-Price",
+      "details": "Material: BPA-free plastic • 5 rings + base • Non-toxic paint • CE & ASTM certified • Ages 6 months+"
+    },
+    {
+      "productId": 402,
+      "categoryId": 4,
+      "name": "Alphabet Puzzle Board",
+      "description": "Wooden A-Z puzzle with colorful letter tiles. Helps children learn the alphabet through play.",
+      "price": 349,
+      "imageUrl": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400",
+      "manufacturer": "Melissa & Doug",
+      "details": "Material: Solid wood & non-toxic paint • 26 letter pieces • Includes guide booklet • Ages 3+"
+    },
+    {
+      "productId": 403,
+      "categoryId": 4,
+      "name": "Science Experiment Kit",
+      "description": "20 safe and exciting experiments covering chemistry, physics, and biology. For curious kids ages 8+.",
+      "price": 549,
+      "imageUrl": "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=400",
+      "manufacturer": "Thames & Kosmos",
+      "details": "20 experiments • Includes lab equipment & chemicals • Full instruction manual • CE certified • Ages 8+"
+    },
+    {
+      "productId": 404,
+      "categoryId": 4,
+      "name": "Junior Coding Robot",
+      "description": "Beginner-friendly programmable robot that teaches logic and coding basics through fun missions.",
+      "price": 899,
+      "imageUrl": "https://images.unsplash.com/photo-1561144257-e32e8efc6c4f?w=400",
+      "manufacturer": "Learning Resources",
+      "details": "USB rechargeable • 20 coding cards included • No app required • Compatible with iOS & Android • Ages 5+"
+    },
+    {
+      "productId": 405,
+      "categoryId": 4,
+      "name": "Magnetic Drawing Board",
+      "description": "Mess-free drawing board with colorful magnetic beads. Erase and draw again infinitely.",
+      "price": 279,
+      "imageUrl": "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=400",
+      "manufacturer": "Crayola",
+      "details": "Size: 30 × 22 cm • Magnetic stylus included • No ink or paint • BPA-free • CE certified • Ages 3+"
+    },
+    {
+      "productId": 406,
+      "categoryId": 4,
+      "name": "World Map Puzzle (200 pcs)",
+      "description": "Large-format jigsaw puzzle of the world map with country names and flags. Great for geography learning.",
+      "price": 399,
+      "imageUrl": "https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?w=400",
+      "manufacturer": "Ravensburger",
+      "details": "200 pieces • Assembled size: 49 × 36 cm • Thick puzzle board • Includes country guide • Ages 7+"
     }
   ]
 }

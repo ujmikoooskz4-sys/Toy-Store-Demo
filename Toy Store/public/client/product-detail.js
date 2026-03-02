@@ -89,7 +89,6 @@ document.addEventListener('DOMContentLoaded', async () => {
              style="flex:1;justify-content:center;font-size:.88rem">
              ← Back
           </a>
-
           <a href="cart.html" 
              class="btn btn-yellow"
              style="flex:1;justify-content:center;font-size:.88rem">
@@ -118,8 +117,7 @@ async function addToCart(productId) {
   const btn = document.querySelector('.add-btn');
 
   btn.textContent = '✓ Added!';
-  btn.style.background =
-    'linear-gradient(135deg,#43E97B,#38F9D7)';
+  btn.style.background = 'linear-gradient(135deg,#43E97B,#38F9D7)';
 
   await fetch('/api/cart', {
     method:'POST',

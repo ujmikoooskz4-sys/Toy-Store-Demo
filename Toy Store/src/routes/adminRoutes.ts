@@ -1,6 +1,4 @@
 import { Router } from "express";
-import fs from "fs";
-import path from "path";
 import {
   getProducts,
   getProductById,
@@ -10,26 +8,12 @@ import {
   getCategories
 } from "../controllers/productController";
 import { requireAdmin } from "../middleware/adminAuth";
+import { adminLogin, adminLogout } from "../controllers/adminController";
 
 const router = Router();
-const adminFile = path.join(process.cwd(), "data/admin.json");
 
-// Login (public)
-router.post("/login", (req, res) => {
-  const { username, password } = req.body;
-  const admin = JSON.parse(fs.readFileSync(adminFile, "utf-8"));
-
-  if (username.trim() === admin.username && password.trim() === admin.password) {
-    (req.session as any).adminLoggedIn = true;
-    return res.json({ success: true });
-  }
-  res.status(401).json({ message: "Invalid credentials" });
-});
-
-router.post("/logout", (req, res) => {
-  (req.session as any).adminLoggedIn = false;
-  res.json({ message: "Logged out" });
-});
+router.post("/login", adminLogin);
+router.post("/logout", adminLogout);
 
 // Protected admin product routes
 router.get("/products/categories", requireAdmin, getCategories);
