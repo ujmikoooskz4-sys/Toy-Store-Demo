@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🧸 SuperNina's Toy Store</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧸</text></svg>">
+  <title> SuperNina's Toy Store</title>
   <link rel="stylesheet" href="/css/theme.css">
   <style>
     /* ── Carousel ── */
@@ -294,6 +295,13 @@
 <div id="toast-container"></div>
 
 <script>
+
+  // Seeded users
+const seededUsers = [
+  { name: "Kenji" },
+  { name: "Mona" },
+  { name: "Nina" }
+];
 // ── Mobile menu ──
 function toggleMobile() {
   document.getElementById('mobile-menu').classList.toggle('open');
@@ -368,12 +376,17 @@ async function loadUsers() {
 
 async function selectUser(id, name) {
   await fetch('/api/users/select', {
-    method:'POST', headers:{'Content-Type':'application/json'},
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
     body: JSON.stringify({ userId: id })
   });
+
   document.getElementById('user-label').textContent = name;
+
   closeUserModal();
   showToast(`👋 Welcome, ${name}!`);
+
+  renderMobileUser(); // refresh mobile login section
 }
 
 async function checkUser() {
@@ -497,7 +510,7 @@ function renderMobileUser() {
 
   if (!user) {
     container.innerHTML = `
-      <a href="login.html">🔐 Login</a>
+      <a href="#" onclick="openUserModal()">🔐 Login</a>
     `;
   } else {
     const parsed = JSON.parse(user);
@@ -513,7 +526,10 @@ function logout() {
   localStorage.removeItem("user");
   location.reload();
 }
+
 </script>
+
+
 
 </body>
 </html>
