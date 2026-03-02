@@ -74,6 +74,10 @@
   <a href="products.html">🧸 Products</a>
   <a href="cart.html">🛒 Cart</a>
   <a href="orders-history.html">📦 Orders</a>
+
+  <!-- 👇 Dynamic User Section -->
+  <div id="mobile-user-section"></div>
+
   <a href="contact.html">📍 Contact</a>
 </div>
 
@@ -106,7 +110,12 @@
   <div class="slide slide-2">
     <div class="slide-content">
       <div class="slide-inner">
-        <span class="slide-emoji">⚔️</span>
+
+         <div class="hero-img-wrap">
+        <img src="slides3.png" 
+        alt="Featured Toy" 
+        class="hero-png"></div>
+
         <h1 class="slide-title" style="color:#0288D1">Epic Action Figures</h1>
         <p class="slide-sub" style="color:#0F3460">Heroes, robots, dinosaurs — find your favourite fighter!</p>
         <a href="products.html?category=1" class="btn btn-lg" style="background:linear-gradient(135deg,#4FC3F7,#0288D1);color:#fff;box-shadow:0 4px 16px rgba(2,136,209,.4)">Explore ⚔️</a>
@@ -116,10 +125,16 @@
   <div class="slide slide-3">
     <div class="slide-content">
       <div class="slide-inner">
-        <span class="slide-emoji">🧸</span>
+        <div class="hero-img-wrap">
+        <img src="slides2.png" 
+        alt="Featured Toy" 
+        class="hero-png"></div>
+
         <h1 class="slide-title" style="color:#7C3AED">Stuffed Animals & More</h1>
         <p class="slide-sub" style="color:#5B21B6">Soft, cuddly friends waiting to be loved.</p>
-        <a href="products.html?category=3" class="btn btn-lg" style="background:linear-gradient(135deg,#A855F7,#7C3AED);color:#fff;box-shadow:0 4px 16px rgba(124,58,237,.4)">Meet Them 💜</a>
+        <a href="products.html?category=3" 
+        class="btn btn-lg" 
+        style="background:linear-gradient(135deg,#A855F7,#7C3AED);color:#fff;box-shadow:0 4px 16px rgba(124,58,237,.4)">Meet Them 💜</a>
       </div>
     </div>
   </div>
@@ -130,19 +145,77 @@
 </div>
 <div class="carousel-dots" id="carousel-dots"></div>
 
-<!-- Category Chips + Featured Products -->
+
+
+<!-- About Us Section -->
+<section class="about-section">
+  <div class="container">
+
+    <div class="section-wrapper animate-up">
+      <h2 class="section-title">About SuperNina's</h2>
+      <p class="section-sub mt-2">Where imagination comes to life ✨</p>
+    </div>
+
+    <div class="about-grid">
+
+      <!-- ⭐ NEW STAR 4 -->
+  <img src="starImage/yellowstar.png" class="star star-4">
+   <img src="starImage/bluestar.png" class="star star-5">
+  <img src="starImage/pinkstar.png" class="star star-6">
+
+      <!-- LEFT TEXT -->
+      <div class="about-text">
+        <p>
+          Toys are more than just objects — they are little companions in childhood,
+          creators of imagination, and keepers of joyful memories.
+        </p>
+
+        <p>
+          SuperNina’s was created with one simple belief: every child and adult deserves toys
+          that inspire wonder, creativity, and happiness. Each piece in our collection
+          is thoughtfully chosen with love, blending quality, charm, and playful magic.
+        </p>
+
+        <p>
+          Because play is not just fun — it’s where dreams begin,
+          confidence grows, and magical moments are made every day. 💖
+        </p>
+
+        <div class="about-buttons">
+          <a href="#" class="btn btn-primary">Shop Now</a>
+          <a href="#" class="btn btn-ghost">Learn More</a>
+        </div>
+      </div>
+
+      <!-- RIGHT IMAGE -->
+<div class="about-image">
+  <img src="Doll_House__Requinoesis-removebg-preview.png" 
+       alt="About SuperNina Toys" 
+       class="main-about-img">
+
+  <!-- Sparkles -->
+  <img src="starImage/bluestar.png" class="star star-1">
+  <img src="starImage/pinkstar.png" class="star star-2">
+  <img src="starImage/yellowstar.png" class="star star-3">
+  
+
+</div>
+
+</section>
+
+<!-- Best Seller Section -->
 <section style="padding:4rem 0 2rem">
   <div class="container">
     <div class="section-wrapper animate-up">
-      <h2 class="section-title">Browse by Category</h2>
-      <p class="section-sub mt-2">Discover something magical in every collection</p>
+      <h2 class="section-title">Best Sellers</h2>
+      <p class="section-sub mt-2">Our most loved toys this season 💖</p>
     </div>
 
-    <div id="category-chips" style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-bottom:2.5rem;animation:fadeUp .5s .1s ease both"></div>
-
-    <div id="featured-products" class="grid-3 stagger"></div>
+    <div id="best-seller-products" class="grid-3 stagger"></div>
   </div>
-</section>
+</section><!-- End Best Seller Section -->
+
+
 
 <!-- Feature Icons -->
 <section style="padding:3rem 0 4rem;background:linear-gradient(180deg,transparent,rgba(255,79,139,.03))">
@@ -379,5 +452,40 @@ document.addEventListener('DOMContentLoaded', () => {
   loadUsers(); checkUser(); loadData(); updateCartCount();
 });
 </script>
+
+<script src="products.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  renderMobileUser();
+});
+
+function renderMobileUser() {
+  const container = document.getElementById("mobile-user-section");
+  if (!container) return;
+
+  // Fake login state (later connect to backend)
+  const user = localStorage.getItem("user");
+
+  if (!user) {
+    container.innerHTML = `
+      <a href="login.html">🔐 Login</a>
+    `;
+  } else {
+    const parsed = JSON.parse(user);
+
+    container.innerHTML = `
+      <a href="profile.html">👤 ${parsed.name}</a>
+      <a href="#" onclick="logout()">🚪 Logout</a>
+    `;
+  }
+}
+
+function logout() {
+  localStorage.removeItem("user");
+  location.reload();
+}
+</script>
+
 </body>
 </html>
