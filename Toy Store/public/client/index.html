@@ -276,7 +276,7 @@
     </div>
     <div>
       <p class="footer-heading">Contact</p>
-      <p>support@toystore.com</p>
+      <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="12616762627d606652667d6b61667d60773c717d7f">[email&#160;protected]</a></p>
       <p>+66 53 123 456</p>
       <p>Nimman Road, Chiang Mai</p>
     </div>
@@ -309,7 +309,7 @@
 <!-- Toast -->
 <div id="toast-container"></div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Seeded users
 const seededUsers = [
   { name: "Kenji" },
@@ -569,7 +569,7 @@ function renderMobileUser() {
   } else {
     const parsed = JSON.parse(stored);
     if (container) container.innerHTML = `
-      <a href="profile.html">👤 ${parsed.name}</a>
+      <a href="#" onclick="openUserModal()">👤 ${parsed.name}</a>
       <a href="#" onclick="logout()">🚪 Logout</a>
     `;
   }
