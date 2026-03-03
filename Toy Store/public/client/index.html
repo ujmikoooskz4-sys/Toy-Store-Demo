@@ -53,6 +53,17 @@
     .feature-card:hover { transform: translateY(-6px); border-color: var(--pink-lt); box-shadow: var(--shadow-md); }
     .feature-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
     .feature-title { font-family: 'Fredoka One', cursive; font-size: 1.15rem; margin-bottom: .5rem; }
+
+    /* ── Logout btn ── */
+    .logout-btn {
+      background: none; border: 2px solid rgba(255,79,139,.3);
+      color: var(--pink); border-radius: 20px;
+      padding: .3rem .9rem; cursor: pointer;
+      font-family: 'Nunito', sans-serif; font-weight: 800; font-size: .85rem;
+      transition: all .2s; display: none;
+    }
+    .logout-btn:hover { background: var(--pink); color: #fff; border-color: var(--pink); }
+    .logout-btn.visible { display: inline-flex; align-items: center; gap: .3rem; }
   </style>
 </head>
 <body>
@@ -66,7 +77,11 @@
     <li><a href="cart.html" class="cart-link">🛒 Cart <span class="cart-badge" id="cart-count">0</span></a></li>
     <li><a href="orders-history.html">Orders</a></li>
     <li><a href="contact.html">Contact</a></li>
-    <li><button class="user-pill" onclick="openUserModal()">👤 <span id="user-label">Select User</span></button></li>
+    <!-- ✅ CHANGED: Login pill + Logout button side by side -->
+    <li style="display:flex;align-items:center;gap:.5rem">
+      <button class="user-pill" id="user-pill-btn" onclick="openUserModal()">👤 <span id="user-label">Login</span></button>
+      <button class="logout-btn" id="logout-btn" onclick="logout()">🚪 Logout</button>
+    </li>
   </ul>
   <button class="mobile-menu-btn" onclick="toggleMobile()">☰</button>
 </nav>
@@ -89,7 +104,7 @@
     <h2 style="font-family:'Fredoka One',cursive;font-size:1.5rem;text-align:center;margin-bottom:.4rem">👋 Who's shopping?</h2>
     <p class="text-muted" style="text-align:center;font-size:.88rem;margin-bottom:1.5rem">Pick your profile to get started</p>
     <div id="user-list" style="display:flex;flex-direction:column;gap:.75rem"></div>
-    <button onclick="closeUserModal()" class="btn btn-ghost" style="width:100%;margin-top:1rem;justify-content:center">Maybe later</button>
+    <div id="modal-action-btn" style="margin-top:1rem"></div>
   </div>
 </div>
 
@@ -173,13 +188,13 @@
         </p>
 
         <p>
-          SuperNina’s was created with one simple belief: every child and adult deserves toys
+          SuperNina's was created with one simple belief: every child and adult deserves toys
           that inspire wonder, creativity, and happiness. Each piece in our collection
           is thoughtfully chosen with love, blending quality, charm, and playful magic.
         </p>
 
         <p>
-          Because play is not just fun — it’s where dreams begin,
+          Because play is not just fun — it's where dreams begin,
           confidence grows, and magical moments are made every day. 💖
         </p>
 
@@ -295,7 +310,6 @@
 <div id="toast-container"></div>
 
 <script>
-
   // Seeded users
 const seededUsers = [
   { name: "Kenji" },
@@ -381,18 +395,13 @@ async function selectUser(id, name) {
     body: JSON.stringify({ userId: id })
   });
 
-  document.getElementById('user-label').textContent = name;
+  localStorage.setItem("user", JSON.stringify({ id, name }));
 
   closeUserModal();
   showToast(`👋 Welcome, ${name}!`);
 
-  renderMobileUser(); // refresh mobile login section
-}
-
-async function checkUser() {
-  const r = await fetch('/api/users/me');
-  const d = await r.json();
-  if(d.loggedIn) document.getElementById('user-label').textContent = d.name;
+  renderMobileUser();
+  updateNavbarUser(); // ✅ update navbar immediately
 }
 
 // ── Products ──
@@ -404,11 +413,44 @@ async function loadData() {
   allC = d.categories; allP = d.products;
 
   const chips = document.getElementById('category-chips');
-  chips.innerHTML = `<button class="chip chip-active" onclick="filterCat(0,this)">✨ All</button>`;
-  allC.forEach(c => {
-    chips.innerHTML += `<button class="chip chip-inactive" onclick="filterCat(${c.categoryId},this)">${c.name}</button>`;
+  if (chips) {
+    chips.innerHTML = `<button class="chip chip-active" onclick="filterCat(0,this)">✨ All</button>`;
+    allC.forEach(c => {
+      chips.innerHTML += `<button class="chip chip-inactive" onclick="filterCat(${c.categoryId},this)">${c.name}</button>`;
+    });
+  }
+
+  // FIX 1: removed renderFeatured(allP) — featured-products does not exist on homepage
+  // FIX 2: always render fixed best sellers
+  renderBestSellers([102, 201, 206]);
+}
+
+function renderBestSellers(ids) {
+  const el = document.getElementById('best-seller-products');
+  if (!el) return;
+  el.innerHTML = '';
+  ids.forEach((id, i) => {
+    const p = allP.find(p => p.productId === id);
+    if (!p) return;
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.style.cursor = 'pointer';
+    div.style.animationDelay = `${i * .06}s`;
+    div.onclick = () => location.href = `/product-detail.html?id=${p.productId}`;
+    div.innerHTML = `
+      <div style="overflow:hidden;position:relative">
+        <span style="position:absolute;top:.75rem;left:.75rem;z-index:1;background:var(--pink);color:#fff;font-size:.78rem;font-weight:800;padding:.25rem .7rem;border-radius:20px">🔥 Best Seller</span>
+        <img src="${p.imageUrl}" class="card-img" style="object-position:${p.imagePosition||'center'}" onerror="this.src='https://placehold.co/400x300/FFE5F0/FF4F8B?text=🧸'">
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">${p.name}</h3>
+        <span class="card-price">฿${p.price}</span>
+        <div style="margin-top:.75rem">
+          <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();quickAdd(${p.productId},'${p.name}')">+ Cart</button>
+        </div>
+      </div>`;
+    el.appendChild(div);
   });
-  renderFeatured(allP);
 }
 
 function filterCat(id, btn) {
@@ -425,6 +467,7 @@ function catName(id) { return (allC.find(c=>c.categoryId===id)||{name:''}).name;
 
 function renderFeatured(list) {
   const el = document.getElementById('featured-products');
+  if (!el) return;
   el.innerHTML = '';
   list.slice(0,6).forEach((p,i) => {
     const div = document.createElement('div');
@@ -462,25 +505,13 @@ function updateCartCount() {
   });
 }
 
-  // ── Mobile menu ──
-function toggleMobile() {
-  const menu = document.getElementById('mobile-menu');
-  if (menu) {
-    menu.classList.toggle('open');
-  }
-}
-
-// ✅ Auto close when resizing to desktop
+// ── Mobile menu ──
 window.addEventListener('resize', () => {
   const menu = document.getElementById('mobile-menu');
   if (!menu) return;
-
-  if (window.innerWidth > 768) {
-    menu.classList.remove('open');
-  }
+  if (window.innerWidth > 768) menu.classList.remove('open');
 });
 
-// ✅ Close after clicking a link
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('#mobile-menu a').forEach(link => {
     link.addEventListener('click', () => {
@@ -489,47 +520,73 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// ✅ CHANGED: On load — read ONLY from localStorage, never from server session
 document.addEventListener('DOMContentLoaded', () => {
-  loadUsers(); checkUser(); loadData(); updateCartCount();
+  loadUsers();
+  // ✅ REMOVED checkUser() — no longer restores session from server
+  loadData();
+  updateCartCount();
+  renderMobileUser();
+  updateNavbarUser();
 });
 </script>
 
-<script src="products.js"></script>
+<!-- FIX 3: removed <script src="products.js"> — it was overwriting best-seller-products -->
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
   renderMobileUser();
+  updateNavbarUser();
 });
+
+// ✅ CHANGED: Updates navbar pill + shows/hides logout button
+function updateNavbarUser() {
+  const userLabel  = document.getElementById("user-label");
+  const logoutBtn  = document.getElementById("logout-btn");
+  const pillBtn    = document.getElementById("user-pill-btn");
+  const stored     = localStorage.getItem("user");
+
+  if (!stored) {
+    // No user — show Login, hide Logout
+    if (userLabel)  userLabel.textContent = "Login";
+    if (logoutBtn)  logoutBtn.classList.remove("visible");
+    if (pillBtn)    pillBtn.title = "Click to select a profile";
+  } else {
+    const parsed = JSON.parse(stored);
+    // User logged in — show name, show Logout
+    if (userLabel)  userLabel.textContent = parsed.name;
+    if (logoutBtn)  logoutBtn.classList.add("visible");
+    if (pillBtn)    pillBtn.title = `Shopping as ${parsed.name}`;
+  }
+}
 
 function renderMobileUser() {
   const container = document.getElementById("mobile-user-section");
-  if (!container) return;
+  const stored    = localStorage.getItem("user");
 
-  // Fake login state (later connect to backend)
-  const user = localStorage.getItem("user");
-
-  if (!user) {
-    container.innerHTML = `
-      <a href="#" onclick="openUserModal()">🔐 Login</a>
-    `;
+  if (!stored) {
+    if (container) container.innerHTML = `<a href="#" onclick="openUserModal()">🔐 Login</a>`;
   } else {
-    const parsed = JSON.parse(user);
-
-    container.innerHTML = `
+    const parsed = JSON.parse(stored);
+    if (container) container.innerHTML = `
       <a href="profile.html">👤 ${parsed.name}</a>
       <a href="#" onclick="logout()">🚪 Logout</a>
     `;
   }
 }
 
+// ✅ CHANGED: Logout clears localStorage AND server session
 function logout() {
   localStorage.removeItem("user");
-  location.reload();
+  // Also clear server session
+  fetch('/api/users/logout', { method: 'POST', credentials: 'same-origin' })
+    .catch(() => {}) // silent fail if endpoint doesn't exist
+    .finally(() => {
+      renderMobileUser();
+      updateNavbarUser();
+      showToast("👋 Logged out successfully!");
+    });
 }
-
 </script>
-
-
-
 </body>
 </html>
