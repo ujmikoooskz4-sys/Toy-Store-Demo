@@ -1,21 +1,41 @@
 [
   {
-    "id": 1772111637222,
-    "customerId": 3,
+    "id": 1772612932539,
+    "customerId": 0,
     "name": "Nina",
-    "address": "chiang mai",
-    "phone": "112233445566",
+    "address": "241 Perkins St, Bonston, MA",
+    "phone": "918273654",
+    "payment": "Bangkok Bank",
+    "items": [
+      {
+        "productId": 102,
+        "productName": "Rei Ayanami – Evangelion",
+        "quantity": 1,
+        "price": 749
+      }
+    ],
+    "total": 749,
+    "status": "Pending",
+    "date": "3/4/2026, 3:28:52 PM"
+  },
+  {
+    "id": 1772613457629,
+    "customerId": 0,
+    "name": "Mona",
+    "address": "85 Camden St, Brookline, MA",
+    "phone": "5568231741",
     "payment": "SCB",
     "items": [
       {
-        "productId": 101,
-        "productName": "Super Hero Figure",
+        "productId": 206,
+        "productName": "Mystery Mansion",
         "quantity": 1,
-        "price": 299
+        "price": 699
       }
     ],
-    "total": 299,
+    "total": 699,
     "status": "Pending",
+<<<<<<< Updated upstream
     "date": "2/26/2026, 8:13:57 PM"
   },
   {
@@ -36,5 +56,8 @@
     "total": 279,
     "status": "Completed",
     "date": "2/26/2026, 8:29:00 PM"
+=======
+    "date": "3/4/2026, 3:37:37 PM"
+>>>>>>> Stashed changes
   }
 ]
