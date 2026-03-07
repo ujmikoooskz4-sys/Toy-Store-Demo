@@ -13,10 +13,16 @@ router.get("/", (req, res) => {
 router.post("/select", (req: any, res) => {
   const { userId } = req.body;
   const users = JSON.parse(fs.readFileSync(usersFile, "utf-8"));
+
   const user = users.find((u: any) => u.id === Number(userId));
   if (!user) return res.status(404).json({ message: "User not found" });
-  req.session.customerId = user.id;
-  req.session.customerName = user.name;
+
+  req.session.user = {   // before --> req.session.customerId = user.id;
+    id: user.id,          // req.session.customerName = user.name; 
+    name: user.name,
+    role: "user"
+  };
+
   res.json({ message: "User selected", user });
 });
 
