@@ -1,145 +1,376 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧸</text></svg>">
-  <title>Cart — SuperNina's Toy Store</title>
-  <link rel="stylesheet" href="/css/theme.css">
-  <style>
-    .cart-item {
-      background:#fff; border-radius:var(--radius); padding:1.2rem 1.4rem;
-      display:flex; gap:1rem; align-items:center;
-      border:1.5px solid var(--border); box-shadow:var(--shadow-sm);
-      transition:all var(--transition); animation:fadeUp .4s ease both;
-    }
-    .cart-item:hover { border-color:var(--pink-lt); box-shadow:var(--shadow-md); }
-    .cart-item-img { width:80px; height:80px; object-fit:cover; border-radius:12px; flex-shrink:0; }
-    .cart-item-info { flex:1; min-width:0; }
-    .cart-item-name { font-family:'Fredoka One',cursive; font-size:1.05rem; }
-    .cart-item-attrs { font-size:.78rem; color:var(--muted); font-weight:600; margin:.15rem 0; }
-    .cart-item-price { font-weight:700; color:var(--pink); font-size:.9rem; }
-    .cart-item-total { font-family:'Fredoka One',cursive; font-size:1.1rem; color:var(--text); min-width:60px; text-align:right; }
-    .remove-btn { background:none; border:none; color:#e0c4d4; font-size:1.3rem; cursor:pointer; transition:color .2s; padding:.2rem; }
-    .remove-btn:hover { color:var(--pink); }
-    .cart-summary { background:#fff; border-radius:var(--radius); padding:1.8rem; box-shadow:var(--shadow-sm); border:1.5px solid var(--border); position:sticky; top:88px; }
-    .summary-row { display:flex; justify-content:space-between; align-items:center; padding:.5rem 0; border-bottom:1px solid var(--border); font-size:.9rem; font-weight:700; }
-    .summary-row.total { font-family:'Fredoka One',cursive; font-size:1.4rem; border:none; margin-top:.5rem; }
-    .cart-layout { display:grid; grid-template-columns:1fr 340px; gap:2rem; align-items:start; }
-    @media(max-width:900px) { .cart-layout { grid-template-columns:1fr; } .cart-summary { position:static; } }
-    /* ── Logout btn ── */
-    .logout-btn {
-      background: none; border: 2px solid rgba(255,79,139,.3);
-      color: var(--pink); border-radius: 20px;
-      padding: .3rem .9rem; cursor: pointer;
-      font-family: 'Nunito', sans-serif; font-weight: 800; font-size: .85rem;
-      transition: all .2s; display: none;
-    }
-    .logout-btn:hover { background: var(--pink); color: #fff; border-color: var(--pink); }
-    .logout-btn.visible { display: inline-flex; align-items: center; gap: .3rem; }
-  </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧸</text></svg>"
+    />
+    <title>Cart — SuperNina's Toy Store</title>
+    <link rel="stylesheet" href="/css/theme.css" />
+    <style>
+      .cart-item {
+        background: #fff;
+        border-radius: var(--radius);
+        padding: 1.2rem 1.4rem;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        border: 1.5px solid var(--border);
+        box-shadow: var(--shadow-sm);
+        transition: all var(--transition);
+        animation: fadeUp 0.4s ease both;
+      }
+      .cart-item:hover {
+        border-color: var(--pink-lt);
+        box-shadow: var(--shadow-md);
+      }
+      .cart-item-img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 12px;
+        flex-shrink: 0;
+      }
+      .cart-item-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .cart-item-name {
+        font-family: "Fredoka One", cursive;
+        font-size: 1.05rem;
+      }
+      .cart-item-attrs {
+        font-size: 0.78rem;
+        color: var(--muted);
+        font-weight: 600;
+        margin: 0.15rem 0;
+      }
+      .cart-item-price {
+        font-weight: 700;
+        color: var(--pink);
+        font-size: 0.9rem;
+      }
+      .cart-item-total {
+        font-family: "Fredoka One", cursive;
+        font-size: 1.1rem;
+        color: var(--text);
+        min-width: 60px;
+        text-align: right;
+      }
+      .remove-btn {
+        background: none;
+        border: none;
+        color: #e0c4d4;
+        font-size: 1.3rem;
+        cursor: pointer;
+        transition: color 0.2s;
+        padding: 0.2rem;
+      }
+      .remove-btn:hover {
+        color: var(--pink);
+      }
+      .cart-summary {
+        background: #fff;
+        border-radius: var(--radius);
+        padding: 1.8rem;
+        box-shadow: var(--shadow-sm);
+        border: 1.5px solid var(--border);
+        position: sticky;
+        top: 88px;
+      }
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+      .summary-row.total {
+        font-family: "Fredoka One", cursive;
+        font-size: 1.4rem;
+        border: none;
+        margin-top: 0.5rem;
+      }
+      .cart-layout {
+        display: grid;
+        grid-template-columns: 1fr 340px;
+        gap: 2rem;
+        align-items: start;
+      }
+      @media (max-width: 900px) {
+        .cart-layout {
+          grid-template-columns: 1fr;
+        }
+        .cart-summary {
+          position: static;
+        }
+      }
+      /* ── Logout btn ── */
+      .logout-btn {
+        background: none;
+        border: 2px solid rgba(255, 79, 139, 0.3);
+        color: var(--pink);
+        border-radius: 20px;
+        padding: 0.3rem 0.9rem;
+        cursor: pointer;
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 0.85rem;
+        transition: all 0.2s;
+        display: none;
+      }
+      .logout-btn:hover {
+        background: var(--pink);
+        color: #fff;
+        border-color: var(--pink);
+      }
+      .logout-btn.visible {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <a href="index.html" class="navbar-brand">🧸 SuperNina's</a>
+      <ul class="navbar-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li>
+          <a href="cart.html" class="cart-link active"
+            >🛒 Cart <span class="cart-badge" id="cart-count">0</span></a
+          >
+        </li>
+        <li><a href="orders-history.html">Orders</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li style="display: flex; align-items: center; gap: 0.5rem">
+          <button
+            class="user-pill"
+            id="user-pill-btn"
+            onclick="openUserModal()"
+          >
+            👤 <span id="user-label">Login</span>
+          </button>
+          <button class="logout-btn" id="logout-btn" onclick="logout()">
+            🚪 Logout
+          </button>
+        </li>
+      </ul>
+      <button class="mobile-menu-btn" onclick="toggleMobile()">☰</button>
+    </nav>
 
-<!-- Navbar -->
-<nav class="navbar">
-  <a href="index.html" class="navbar-brand">🧸 SuperNina's</a>
-  <ul class="navbar-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="products.html">Products</a></li>
-    <li><a href="cart.html" class="cart-link active">🛒 Cart <span class="cart-badge" id="cart-count">0</span></a></li>
-    <li><a href="orders-history.html">Orders</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li style="display:flex;align-items:center;gap:.5rem">
-      <button class="user-pill" id="user-pill-btn" onclick="openUserModal()">👤 <span id="user-label">Login</span></button>
-      <button class="logout-btn" id="logout-btn" onclick="logout()">🚪 Logout</button>
-    </li>
-  </ul>
-  <button class="mobile-menu-btn" onclick="toggleMobile()">☰</button>
-</nav>
-
-<div class="mobile-menu" id="mobile-menu">
-  <a href="index.html">🏠 Home</a>
-  <a href="products.html">🧸 Products</a>
-  <a href="cart.html">🛒 Cart</a>
-  <a href="orders-history.html">📦 Orders</a>
-  <div id="mobile-user-section"></div>
-  <a href="contact.html">📍 Contact</a>
-</div>
-
-<!-- User Modal -->
-<div class="modal-overlay" id="user-modal" onclick="closeUserModalOutside(event)">
-  <div class="modal-box">
-    <h2 style="font-family:'Fredoka One',cursive;font-size:1.5rem;text-align:center;margin-bottom:.4rem">👋 Who's shopping?</h2>
-    <p class="text-muted" style="text-align:center;font-size:.88rem;margin-bottom:1.5rem">Pick your profile to get started</p>
-    <div id="user-list" style="display:flex;flex-direction:column;gap:.75rem"></div>
-  </div>
-</div>
-
-<div style="background:linear-gradient(135deg,#FFE5F0,#FFF3C4);padding:2.5rem 2rem 2rem;text-align:center">
-  <h1 class="section-title" style="font-size:2rem">🛒 Shopping Cart</h1>
-</div>
-
-<div class="container" style="padding:2.5rem 1.5rem 5rem">
-  <div class="cart-layout">
-    <div>
-      <div id="cart-items" class="stagger" style="display:flex;flex-direction:column;gap:1rem"></div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="index.html">🏠 Home</a>
+      <a href="products.html">🧸 Products</a>
+      <a href="cart.html">🛒 Cart</a>
+      <a href="orders-history.html">📦 Orders</a>
+      <div id="mobile-user-section"></div>
+      <a href="contact.html">📍 Contact</a>
     </div>
-    <aside class="cart-summary animate-up">
-      <h2 style="font-family:'Fredoka One',cursive;font-size:1.2rem;margin-bottom:1.2rem">Order Summary</h2>
-      <div id="summary-items"></div>
-      <div class="summary-row total">
-        <span>Total</span>
-        <span class="text-pink">฿<span id="cart-total">0</span></span>
+
+    <!-- User Modal -->
+    <div
+      class="modal-overlay"
+      id="user-modal"
+      onclick="closeUserModalOutside(event)"
+    >
+      <div class="modal-box">
+        <h2
+          style="
+            font-family: &quot;Fredoka One&quot;, cursive;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 0.4rem;
+          "
+        >
+          👋 Who's shopping?
+        </h2>
+        <p
+          class="text-muted"
+          style="text-align: center; font-size: 0.88rem; margin-bottom: 1.5rem"
+        >
+          Pick your profile to get started
+        </p>
+        <div
+          id="user-list"
+          style="display: flex; flex-direction: column; gap: 0.75rem"
+        ></div>
       </div>
-      <button onclick="goToCheckout()" class="btn btn-green btn-lg" style="width:100%;justify-content:center;margin-top:1.2rem">
-        Checkout →
-      </button>
-      <a href="products.html" class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:.6rem">
-        ← Continue Shopping
-      </a>
-    </aside>
-  </div>
-</div>
+    </div>
 
-<footer class="footer">
-  <div class="footer-grid">
-    <div><div class="footer-brand">🧸 SuperNina's</div><p style="font-size:.85rem;color:rgba(255,255,255,.5)">Bringing joy and imagination to children everywhere.</p></div>
-    <div><p class="footer-heading">Quick Links</p><a href="products.html">Products</a><a href="contact.html">Contact</a></div>
-    <div><p class="footer-heading">Contact</p><p>support@toystore.com</p><p>+66 53 123 456</p></div>
-    <div><p class="footer-heading">Follow Us</p><a href="#">📘 Facebook</a><a href="#">📸 Instagram</a></div>
-  </div>
-  <div class="footer-bottom">© 2026 SuperNina's Toy Store. All rights reserved.</div>
-</footer>
+    <div
+      style="
+        background: linear-gradient(135deg, #ffe5f0, #fff3c4);
+        padding: 2.5rem 2rem 2rem;
+        text-align: center;
+      "
+    >
+      <h1 class="section-title" style="font-size: 2rem">🛒 Shopping Cart</h1>
+    </div>
 
-<button id="chat-btn" onclick="document.getElementById('chat-box').classList.toggle('open')">💬</button>
-<div id="chat-box">
-  <div class="chat-header"><span>💬 Live Support</span><button onclick="document.getElementById('chat-box').classList.remove('open')" style="background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer">✕</button></div>
-  <div class="chat-messages" id="chat-messages"><div class="msg-bot">👋 Hi! How can we help you today?</div></div>
-  <div class="chat-input-row"><input id="chat-input" type="text" placeholder="Type a message…" onkeypress="if(event.key==='Enter')sendChat()"><button onclick="sendChat()">Send</button></div>
-</div>
-<div id="toast-container"></div>
+    <div class="container" style="padding: 2.5rem 1.5rem 5rem">
+      <div class="cart-layout">
+        <div>
+          <div
+            id="cart-items"
+            class="stagger"
+            style="display: flex; flex-direction: column; gap: 1rem"
+          ></div>
+        </div>
+        <aside class="cart-summary animate-up">
+          <h2
+            style="
+              font-family: &quot;Fredoka One&quot;, cursive;
+              font-size: 1.2rem;
+              margin-bottom: 1.2rem;
+            "
+          >
+            Order Summary
+          </h2>
+          <div id="summary-items"></div>
+          <div class="summary-row total">
+            <span>Total</span>
+            <span class="text-pink">฿<span id="cart-total">0</span></span>
+          </div>
+          <button
+            onclick="goToCheckout()"
+            class="btn btn-green btn-lg"
+            style="width: 100%; justify-content: center; margin-top: 1.2rem"
+          >
+            Checkout →
+          </button>
+          <a
+            href="products.html"
+            class="btn btn-ghost"
+            style="width: 100%; justify-content: center; margin-top: 0.6rem"
+          >
+            ← Continue Shopping
+          </a>
+        </aside>
+      </div>
+    </div>
 
-<script>
-function sendChat(){const i=document.getElementById('chat-input'),m=i.value.trim();if(!m)return;const b=document.getElementById('chat-messages');b.innerHTML+=`<div class="msg-user">${m}</div>`;i.value='';b.scrollTop=99999;setTimeout(()=>{b.innerHTML+=`<div class="msg-bot">Thank you! Our team will respond shortly 😊</div>`;b.scrollTop=99999;},800);}
-function showToast(msg){const c=document.getElementById('toast-container');const t=document.createElement('div');t.className='toast';t.innerHTML=msg;c.appendChild(t);setTimeout(()=>{t.classList.add('leaving');setTimeout(()=>t.remove(),300);},2500);}
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">🧸 SuperNina's</div>
+          <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.5)">
+            Bringing joy and imagination to children everywhere.
+          </p>
+        </div>
+        <div>
+          <p class="footer-heading">Quick Links</p>
+          <a href="products.html">Products</a><a href="contact.html">Contact</a>
+        </div>
+        <div>
+          <p class="footer-heading">Contact</p>
+          <p>support@toystore.com</p>
+          <p>+66 53 123 456</p>
+        </div>
+        <div>
+          <p class="footer-heading">Follow Us</p>
+          <a href="#">📘 Facebook</a><a href="#">📸 Instagram</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 SuperNina's Toy Store. All rights reserved.
+      </div>
+    </footer>
 
-// ── Mobile menu ──
-function toggleMobile() {
-  document.getElementById('mobile-menu').classList.toggle('open');
-}
-window.addEventListener('resize', () => {
-  if (window.innerWidth > 768) document.getElementById('mobile-menu').classList.remove('open');
-});
+    <button
+      id="chat-btn"
+      onclick="document.getElementById('chat-box').classList.toggle('open')"
+    >
+      💬
+    </button>
+    <div id="chat-box">
+      <div class="chat-header">
+        <span>💬 Live Support</span
+        ><button
+          onclick="document.getElementById('chat-box').classList.remove('open')"
+          style="
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+          "
+        >
+          ✕
+        </button>
+      </div>
+      <div class="chat-messages" id="chat-messages">
+        <div class="msg-bot">👋 Hi! How can we help you today?</div>
+      </div>
+      <div class="chat-input-row">
+        <input
+          id="chat-input"
+          type="text"
+          placeholder="Type a message…"
+          onkeypress="if (event.key === 'Enter') sendChat();"
+        /><button onclick="sendChat()">Send</button>
+      </div>
+    </div>
+    <div id="toast-container"></div>
 
-// ── User modal ──
-function openUserModal() { document.getElementById('user-modal').classList.add('open'); }
-function closeUserModal() { document.getElementById('user-modal').classList.remove('open'); }
-function closeUserModalOutside(e) { if(e.target===e.currentTarget) closeUserModal(); }
+    <script>
+      function sendChat() {
+        const i = document.getElementById("chat-input"),
+          m = i.value.trim();
+        if (!m) return;
+        const b = document.getElementById("chat-messages");
+        b.innerHTML += `<div class="msg-user">${m}</div>`;
+        i.value = "";
+        b.scrollTop = 99999;
+        setTimeout(() => {
+          b.innerHTML += `<div class="msg-bot">Thank you! Our team will respond shortly 😊</div>`;
+          b.scrollTop = 99999;
+        }, 800);
+      }
+      function showToast(msg) {
+        const c = document.getElementById("toast-container");
+        const t = document.createElement("div");
+        t.className = "toast";
+        t.innerHTML = msg;
+        c.appendChild(t);
+        setTimeout(() => {
+          t.classList.add("leaving");
+          setTimeout(() => t.remove(), 300);
+        }, 2500);
+      }
 
-async function loadUsers() {
-  const r = await fetch('/api/users');
-  const users = await r.json();
-  document.getElementById('user-list').innerHTML = users.map(u => `
+      // ── Mobile menu ──
+      function toggleMobile() {
+        document.getElementById("mobile-menu").classList.toggle("open");
+      }
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 768)
+          document.getElementById("mobile-menu").classList.remove("open");
+      });
+
+      // ── User modal ──
+      function openUserModal() {
+        document.getElementById("user-modal").classList.add("open");
+      }
+      function closeUserModal() {
+        document.getElementById("user-modal").classList.remove("open");
+      }
+      function closeUserModalOutside(e) {
+        if (e.target === e.currentTarget) closeUserModal();
+      }
+
+      async function loadUsers() {
+        const r = await fetch("/api/users");
+        const users = await r.json();
+        document.getElementById("user-list").innerHTML = users
+          .map(
+            (u) => `
     <button onclick="selectUser(${u.id},'${u.name}')" style="
       display:flex;align-items:center;gap:.8rem;padding:.9rem 1.1rem;
       background:#fdfbff;border:2px solid var(--border);border-radius:12px;
@@ -149,70 +380,78 @@ async function loadUsers() {
        onmouseout="this.style.borderColor='var(--border)';this.style.background='#fdfbff'">
       <span style="width:40px;height:40px;background:var(--pink-lt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem">👤</span>
       ${u.name}
-    </button>`).join('');
-}
+    </button>`,
+          )
+          .join("");
+      }
 
-async function selectUser(id, name) {
-  await fetch('/api/users/select', {
-    method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ userId: id })
-  });
-  localStorage.setItem("user", JSON.stringify({ id, name }));
-  closeUserModal();
-  showToast(`👋 Welcome, ${name}!`);
-  renderMobileUser();
-  updateNavbarUser();
-}
+      async function selectUser(id, name) {
+        await fetch("/api/users/select", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: id }),
+        });
+        localStorage.setItem("user", JSON.stringify({ id, name }));
+        closeUserModal();
+        showToast(`👋 Welcome, ${name}!`);
+        renderMobileUser();
+        updateNavbarUser();
+      }
 
-function updateNavbarUser() {
-  const userLabel = document.getElementById("user-label");
-  const logoutBtn = document.getElementById("logout-btn");
-  const pillBtn   = document.getElementById("user-pill-btn");
-  const stored    = localStorage.getItem("user");
-  if (!stored) {
-    if (userLabel) userLabel.textContent = "Login";
-    if (logoutBtn) logoutBtn.classList.remove("visible");
-    if (pillBtn)   pillBtn.title = "Click to select a profile";
-  } else {
-    const parsed = JSON.parse(stored);
-    if (userLabel) userLabel.textContent = parsed.name;
-    if (logoutBtn) logoutBtn.classList.add("visible");
-    if (pillBtn)   pillBtn.title = `Shopping as ${parsed.name}`;
-  }
-}
+      function updateNavbarUser() {
+        const userLabel = document.getElementById("user-label");
+        const logoutBtn = document.getElementById("logout-btn");
+        const pillBtn = document.getElementById("user-pill-btn");
+        const stored = localStorage.getItem("user");
+        if (!stored) {
+          if (userLabel) userLabel.textContent = "Login";
+          if (logoutBtn) logoutBtn.classList.remove("visible");
+          if (pillBtn) pillBtn.title = "Click to select a profile";
+        } else {
+          const parsed = JSON.parse(stored);
+          if (userLabel) userLabel.textContent = parsed.name;
+          if (logoutBtn) logoutBtn.classList.add("visible");
+          if (pillBtn) pillBtn.title = `Shopping as ${parsed.name}`;
+        }
+      }
 
-function renderMobileUser() {
-  const container = document.getElementById("mobile-user-section");
-  const stored    = localStorage.getItem("user");
-  if (!stored) {
-    if (container) container.innerHTML = `<a href="#" onclick="openUserModal()">🔐 Login</a>`;
-  } else {
-    const parsed = JSON.parse(stored);
-    if (container) container.innerHTML = `
+      function renderMobileUser() {
+        const container = document.getElementById("mobile-user-section");
+        const stored = localStorage.getItem("user");
+        if (!stored) {
+          if (container)
+            container.innerHTML = `<a href="#" onclick="openUserModal()">🔐 Login</a>`;
+        } else {
+          const parsed = JSON.parse(stored);
+          if (container)
+            container.innerHTML = `
       <a href="#" onclick="openUserModal()">👤 ${parsed.name}</a>
       <a href="#" onclick="logout()">🚪 Logout</a>`;
-  }
-}
+        }
+      }
 
-function logout() {
-  localStorage.removeItem("user");
-  fetch('/api/users/logout', { method:'POST', credentials:'same-origin' })
-    .catch(() => {})
-    .finally(() => {
-      renderMobileUser();
-      updateNavbarUser();
-      showToast("👋 Logged out successfully!");
-    });
-}
+      function logout() {
+        localStorage.removeItem("user");
+        fetch("/api/users/logout", {
+          method: "POST",
+          credentials: "same-origin",
+        })
+          .catch(() => {})
+          .finally(() => {
+            renderMobileUser();
+            updateNavbarUser();
+            showToast("👋 Logged out successfully!");
+          });
+      }
 
-document.addEventListener('DOMContentLoaded', () => {
-  loadUsers();
-  updateNavbarUser();
-  renderMobileUser();
-  loadCart();
-  updateCartCount();
-});
-</script>
-<script src="cart.js"></script>
-</body>
+      document.addEventListener("DOMContentLoaded", () => {
+        loadUsers();
+        updateNavbarUser();
+        renderMobileUser();
+        loadCart();
+        updateCartCount();
+      });
+    </script>
+    <script src="cart.js"></script>
+  </body>
 </html>
