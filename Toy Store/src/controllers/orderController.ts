@@ -25,6 +25,9 @@ export function createOrder(req: Request, res: Response) {
     const { name, address, phone, payment } = req.body;
 
     const session = req.session as any;
+    if (!session.user) {
+    return res.status(401).json({ message: "Please select a user first" }); // if condition added
+}
     const cart = session.cart || [];
 
     if (!name || !address || !phone || !payment) {
@@ -59,7 +62,8 @@ export function createOrder(req: Request, res: Response) {
 
     const newOrder = {
       id: Date.now(),
-      customerId: session.customerId || null,
+    //  customerId: session.user?.id || null, --> changed from customerId: session.customerId 
+      customerId: session.user.id, // --> changed from customerId: session.user?.id || null
       name,
       address,
       phone,
@@ -93,19 +97,23 @@ export function getOrders(req: Request, res: Response) {
     const session = req.session as any;
     const allOrders = readJSON(ordersFile);
 
-    // If called from admin (adminLoggedIn), return all orders
-    if (session.adminLoggedIn) {
+    // admin = see all orders
+    if(session.user?.role === "admin") {
       return res.json(allOrders);
     }
 
-    // For customers: filter by their customerId
-    const customerId = session.customerId;
-    if (!customerId) {
-      return res.json([]); // no user selected → empty list
+    // user = see only their orders
+    const customerId = session.user?.id;
+    if(customerId === undefined) {
+      return res.json([]);
     }
+   
+    const customerOrders = allOrders.filter(
+      (o: any) => o.customerId === customerId
+    );
 
-    const customerOrders = allOrders.filter((o: any) => o.customerId == customerId);
-    res.json(customerOrders);
+    res.json(customerOrders)
+
   } catch (error) {
     console.error("Get Orders Error:", error);
     res.status(500).json({ message: "Server error" });
